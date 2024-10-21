@@ -8,7 +8,7 @@ export function Home() {
     <HomeContainer>
       <Hero />
       <CategoriesSection />
-      <ProductsSection page="home" limit={9} title="Our Products"/>
+      <ProductsSection page="home" limit={4} title="Our Products"/>
       <StoreInfo />
     </HomeContainer>
   );

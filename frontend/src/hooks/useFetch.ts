@@ -13,8 +13,6 @@ const initialState = {
   error: null,
 };
 
-
-
 const reducer = (state: FetchState, action) => {
   switch (action.type) {
     case "success":

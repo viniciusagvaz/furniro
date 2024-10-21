@@ -10,10 +10,13 @@ export function Router() {
   return (
     <Routes>
       <Route path="/" element={<DefaultLayout />}>
-        <Route path="home" element={<Home />} />
-        <Route path="home/shop" element={<Shop/>} />
-        <Route path="product" element={<Product/>} />
-        <Route path="invalid-path" element={<UnderConstruction/>} />
+        <Route index element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="shop" element={<Shop />} />
+        <Route path="product" element={<Product />}>
+          <Route path=":productName" element={<Product />} />
+        </Route>
+        <Route path="invalid-path" element={<UnderConstruction />} />
       </Route>
     </Routes>
   );

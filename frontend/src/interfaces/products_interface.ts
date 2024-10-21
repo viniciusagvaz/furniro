@@ -1,4 +1,4 @@
-import { CategoryProps } from "./categories_interface";
+import { Category } from "./categories_interface";
 
 export interface Product {
   id: number;
@@ -13,5 +13,5 @@ export interface Product {
   is_new: boolean;
   image_link: string | null;
   other_image_link?: string[];
-  category: CategoryProps[] | null;
+  category: Category[] | null;
 }

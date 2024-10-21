@@ -2,7 +2,6 @@ import * as S from "./styles";
 
 export const SectionFilter = () => {
   const handleFilterModal = () => {
-    console.log("filter modal");
   };
 
 

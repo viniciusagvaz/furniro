@@ -1,10 +1,12 @@
-import { captilize } from "../../utils/captilize";
 import { Button } from "../Buttons";
 import { MenuItem } from "../MenuItem";
 import * as S from "./styles";
+
+import { capitalize } from "../../utils/capitalize";
 import { useNavigate } from "react-router-dom";
 
 interface CardProps {
+  id: number,
   name: string;
   description: string | null;
   price: number;
@@ -12,7 +14,7 @@ interface CardProps {
   discount_price: number | null;
   discount_percent: number | null;
   is_new: boolean;
-  image_link: string | null;
+  image_link: string;
 }
 
 export const ProductCard: React.FC<CardProps> = ({
@@ -24,18 +26,19 @@ export const ProductCard: React.FC<CardProps> = ({
   is_new,
   image_link,
 }) => {
+  
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate(`/product`);
+    navigate(`/product/${name}`);
   };
 
   return (
     <S.ProductCard id={name} >
-      <S.Image src={image_link?.toString()} alt={`Product ${name}`} />
+      <S.Image src={image_link} alt={`Product ${name}`} />
 
       <S.ProductInformation>
-        <S.Title>{captilize(name)}</S.Title>
+        <S.Title>{capitalize(name)}</S.Title>
         <S.Description>{description}</S.Description>
 
         {discount_price ? (

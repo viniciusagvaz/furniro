@@ -1,8 +1,18 @@
+import { useContext } from "react";
 import { Button } from "../../components/Buttons/index";
 import { ProductsSection } from "../../components/SectionProduct/index";
 import * as S from "./styles";
+import { ProductsContext } from "../../contexts/products.context";
+import { useParams } from "react-router-dom";
+
 
 export const Product = () => {
+  
+  const { products } = useContext(ProductsContext);
+  const { productName } = useParams();
+  const product = products?.find(product => product.name === productName);
+  console.log(productName);
+
   return (
     <div>
       <S.PageBreadCrumbs>
@@ -30,7 +40,7 @@ export const Product = () => {
           </div>
 
           <div className={"details"}>
-            <h1>Product Name</h1>
+            <h1>{`${product?.name}`}</h1>
             <h2>Rp. 250,000.00</h2>
             <span>****** | 5 Customer Review</span>
             <p style={{ width: "424px" }}>

@@ -1,33 +1,22 @@
 import { Button } from "../Buttons";
 import { ProductCard } from "../CardProduct";
 import { SectionTitle } from "../TitleSection";
-import { SkeletonProductsSection } from "../SectionProduct/section.skeleton";
 
 import * as S from "./styles";
-import { useFetch } from "../../hooks/useFetch";
+import { useContext } from "react";
+import { ProductsContext } from "../../contexts/products.context";
 
 interface ProductsSectionProps {
-  limit?: number;
+  limit: number;
   title?: string;
   page: "home" | "shop" | "product";
 }
 
 export function ProductsSection({ limit, title, page }: ProductsSectionProps) {
-  const { data: products, loading } = useFetch("products");
-  const displayedProducts = products?.slice(0, limit);
-  console.log(products);
 
-  if (loading) {
-    return <SkeletonProductsSection />;
-  }
+  const { products } = useContext(ProductsContext);
 
-  const handleTitle = () => {
-    if (title) {
-      return;
-    }
-
-    return null;
-  };
+  const displayedProducts = products?.filter((product, index) => index < limit);
 
   const handleButtonType = () => {
     if (page === "home" || page === "product") {
@@ -55,6 +44,7 @@ export function ProductsSection({ limit, title, page }: ProductsSectionProps) {
             key={product.id}
             {...product}
             description={product.description ?? ""}
+            image_link={product.image_link ?? ""}
           />
         ))}
       </S.ProductsContent>
