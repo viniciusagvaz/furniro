@@ -5,19 +5,7 @@
 #### Objetivo: Criar uma plataforma de vendas de móveis e decoração que ofereça uma experiência de usuário intuitiva e agradável. 
 ##
 
-<table>
-<tr>
-
-<td>
-
-### Tecnologias utilizadas no Backend
-- NestJs 
-- Prisma
-- PostgreSQL
-- Insomnia
-- Nodejs
-- TypeScript
--<table style="width: 100%; border-collapse: collapse;">
+<table style="width: 100%; border-collapse: collapse;">
   <tr>
     <td style="width: 50%; border: 1px solid #ddd; padding: 10px;">
 
@@ -42,24 +30,6 @@
 
     </td>
   </tr>
-</table>
-
-</td>
-
-
-<td>
-
-### Tecnologias utilizadas no Frontend
-- React  
-- Vite
-- TypeScript
-- Styled-Components
-- Axios
-- React-Router
-- Framer-Motion
-
-</td>
-<tr>
 </table>
 
 
@@ -123,5 +93,6 @@
 <div align="center">
 <img  alt="Vinicius Vaz Logo" width="50" height="50rem" src="src/assets/icons/vv-logo.ico">
 <div>
+# furniro
 # furniro
 # furniro
