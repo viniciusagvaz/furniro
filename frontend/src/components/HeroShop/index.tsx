@@ -1,11 +1,16 @@
 import * as S from "./styles.js";
 
-export function Hero() {
+interface HeroProps {
+  title: string;
+  image: string;
+}
+
+export function Hero({ title, image }: HeroProps) {
   return (
-    <S.Hero>
-      <S.HeroBg />
+    <S.Hero> 
+      <S.HeroBg src={image} alt="hero" />
       <S.HeroContent>
-        <h2>Shop</h2>
+        <h2>{title}</h2>
 
         <span>
           <p>Home</p>

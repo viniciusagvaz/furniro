@@ -16,7 +16,7 @@ export function ProductsSection({ limit, title, page }: ProductsSectionProps) {
 
   const { products } = useContext(ProductsContext);
 
-  const displayedProducts = products?.filter((product, index) => index < limit);
+  const displayedProducts = products?.filter((_, index) => index < limit);
 
   const handleButtonType = () => {
     if (page === "home" || page === "product") {

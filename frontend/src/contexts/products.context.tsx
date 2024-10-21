@@ -5,7 +5,7 @@ import { SkeletonProductCard } from "../components/CardProduct/card.skeleton";
 import { Product } from "../interfaces/products_interface";
 
 interface ProductsContextValue {
-  products: Product[];
+  products: Product[] ;
   loading: boolean;
   error: Error | null;
 }

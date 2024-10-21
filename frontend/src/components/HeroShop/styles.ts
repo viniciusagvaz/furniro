@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import hero from "../../assets/img/hero-shop.jpeg";
 
-const image = hero;
+
 
 export const Hero = styled.div`
   display: flex;
@@ -9,28 +8,22 @@ export const Hero = styled.div`
   justify-content: center;
   position: relative;
   overflow: hidden;
-  `;
-  
-  export const HeroBg = styled.img`
+`;
+
+export const HeroBg = styled.img`
   height: 316px;
-  background-image: url(${image});
-  background-size: cover;
-  background-position-y: 51%;
-  background-repeat: no-repeat;
   width: 100%;
-  filter: blur(2px) opacity(0.55);
-  
-  z-index: -1;
-  `;
-  
-  export const HeroContent = styled.div`
+  object-fit: cover;
+  filter: brightness(100%) blur(4px);
+  opacity: 0.75;  
+`;
+
+export const HeroContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: absolute;
-
-  
 
   h2 {
     font-weight: 500;
@@ -48,4 +41,3 @@ export const Hero = styled.div`
     gap: 0.8rem;
   }
 `;
-

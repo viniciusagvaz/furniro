@@ -1,17 +1,17 @@
 import { useContext } from "react";
 import { Button } from "../../components/Buttons/index";
 import { ProductsSection } from "../../components/SectionProduct/index";
-import * as S from "./styles";
 import { ProductsContext } from "../../contexts/products.context";
+import * as S from "./styles";
+
 import { useParams } from "react-router-dom";
 
 
 export const Product = () => {
-  
   const { products } = useContext(ProductsContext);
   const { productName } = useParams();
+
   const product = products?.find(product => product.name === productName);
-  console.log(productName);
 
   return (
     <div>

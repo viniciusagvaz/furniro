@@ -13,6 +13,8 @@ interface CategoryProps {
 export function CategoriesSection() {
   const { data: categories, loading } = useFetch("category");
 
+  
+  
   if (loading) {
     return (
       <S.CategoriesSection>
