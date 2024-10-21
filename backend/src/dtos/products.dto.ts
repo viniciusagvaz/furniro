@@ -1,4 +1,3 @@
-import { Decimal, JsonArray } from '@prisma/client/runtime/library';
 import {
   IsArray,
   IsBoolean,
@@ -9,10 +8,6 @@ import {
 } from 'class-validator';
 
 export class ProductDto {
-  
-  // @IsNumber()
-  // id: number;
-
   @IsString()
   name: string;
 
@@ -52,11 +47,5 @@ export class ProductDto {
   @IsArray()
   @IsString({ each: true })
   other_image_link: string[];
-
-  // @IsDate()
-  // created_date: Date;
-
-  // @IsDate()
-  // updated_date: Date;
 }
 
