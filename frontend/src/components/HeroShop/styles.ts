@@ -23,13 +23,6 @@ export const HeroContent = styled.div`
   align-items: center;
   position: absolute;
 
-  h2 {
-  }
-
-  p {
-    font-weight: 500;
-  }
-
   span {
     display: flex;
     align-items: center;
@@ -43,3 +36,7 @@ export const Title = styled.h2`
   margin-bottom: 1.25rem;
   text-transform: capitalize;
 `;
+
+export const Category = styled.p`
+  text-transform: capitalize;
+`

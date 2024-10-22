@@ -13,22 +13,25 @@ interface Category {
 }
 
 export function Category() {
-  const { categoryName } = useParams();
-  const { data: categories } = useFetch("category");
+  const { categoryId } = useParams();
 
+  const { data: categories } = useFetch("category");
+  const { data: products } = useFetch(`products/category/${categoryId}`);
+  console.log(products);
   const category = categories?.find((cat: Category) => {
-    return cat.name === categoryName;
+    return cat.id === Number(categoryId);
   });
 
   return (
     <section>
-      <Hero image={category?.image_link} title={categoryName as string} />
+      <Hero image={category?.image_link} title={category?.name} />
       <SectionFilter />
       <ProductsSection
-        title={categoryName as string}
+        title={"Products"}
         limit={16}
         buttonVariant="navigation"
-        path={`/category/${categoryName}`}
+        path={`/category/${categoryId}`}
+        products={products}
       />
       <StoreInfo />
     </section>

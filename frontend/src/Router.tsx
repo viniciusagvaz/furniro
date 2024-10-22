@@ -16,7 +16,7 @@ export function Router() {
         <Route path="product" element={<ProductDetail />}>
           <Route path=":productName" element={<ProductDetail />} />
         </Route>
-        <Route path="category/:categoryName" element={<Category />} />
+        <Route path="category/:categoryId" element={<Category />} />
         <Route path="invalid-path" element={<UnderConstruction />} />
       </Route>
     </Routes>
