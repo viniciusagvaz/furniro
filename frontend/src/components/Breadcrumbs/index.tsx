@@ -1,7 +1,7 @@
 import * as S from "./styles";
 import chevron from "../../assets/icons/chevron.svg";
 import { MenuItem } from "../MenuItem";
-import { Products } from "../../interfaces/products_interface";
+import { Products } from "../../interfaces/products.interface";
 
 interface BreadCrumbsProps {
   product: Products["name"];

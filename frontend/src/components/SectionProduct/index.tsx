@@ -5,38 +5,34 @@ import { SectionTitle } from "../TitleSection";
 import * as S from "./styles";
 import { useContext } from "react";
 import { ProductsContext } from "../../contexts/products.context";
+import { useNavigateTo } from "../../hooks/useNavigateTo";
+import { DisplayOptions } from "../../interfaces/display_limiter.interface";
+import { SkeletonProductCard } from "../CardProduct/card.skeleton";
 
 interface ProductsSectionProps {
+  displayedProducts?: DisplayOptions;
   limit: number;
   title?: string;
-  page: "home" | "shop" | "product";
+  path?: string | null;
+  buttonVariant: "show" | "details" | "navigation" | "cart" | "newsletter";
 }
 
-export function ProductsSection({ limit, title, page }: ProductsSectionProps) {
-
-  const { products } = useContext(ProductsContext);
-
+export function ProductsSection({
+  limit,
+  title,
+  path,
+  buttonVariant,
+}: ProductsSectionProps) {
+  const { products, loading } = useContext(ProductsContext);
   const displayedProducts = products?.filter((_, index) => index < limit);
+  const navigateTo = useNavigateTo(path ?? "");
 
-  const handleButtonType = () => {
-    if (page === "home" || page === "product") {
-      return <Button variant={"show"} children="Show More" to="shop" />;
-    }
-
-    if (page === "shop") {
-      return (
-        <div style={{ display: "flex", gap: "1rem" }}>
-          <Button variant={"navigation"} children="1" to="shop" />
-          <Button variant={"navigation"} children="2" to="shop" />
-          <Button variant={"navigation"} children="3" to="shop" />
-          <Button variant={"navigation"} children="Next" to="shop" />
-        </div>
-      );
-    }
-  };
+  if (loading) {
+    return <SkeletonProductCard />;
+  }
 
   return (
-    <S.ProductsSection>
+    <S.ProductsSection id="ProductsSection">
       <SectionTitle children={title} fontSize="2.5rem" />
       <S.ProductsContent>
         {displayedProducts?.map((product) => (
@@ -49,7 +45,11 @@ export function ProductsSection({ limit, title, page }: ProductsSectionProps) {
         ))}
       </S.ProductsContent>
 
-      {handleButtonType()}
+      <Button
+        variant={buttonVariant}
+        children="Show More"
+        onClick={navigateTo}
+      />
     </S.ProductsSection>
   );
 }

@@ -4,7 +4,7 @@ import * as S from "./styles";
 
 import share from "../../assets/icons/share.svg";
 import compare from "../../assets/icons/compare.svg";
-import heart from "../../assets/icons/heart-wt.svg";
+import heart from "../../assets/icons/heart.svg";
 
 import { capitalize } from "../../utils/capitalize";
 import { useNavigate } from "react-router-dom";

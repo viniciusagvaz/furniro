@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-
-
 export const Hero = styled.div`
   display: flex;
   align-items: center;
@@ -15,7 +13,7 @@ export const HeroBg = styled.img`
   width: 100%;
   object-fit: cover;
   filter: brightness(100%) blur(4px);
-  opacity: 0.75;  
+  opacity: 0.75;
 `;
 
 export const HeroContent = styled.div`
@@ -26,9 +24,6 @@ export const HeroContent = styled.div`
   position: absolute;
 
   h2 {
-    font-weight: 500;
-    font-size: 3rem;
-    margin-bottom: 1.25rem;
   }
 
   p {
@@ -40,4 +35,11 @@ export const HeroContent = styled.div`
     align-items: center;
     gap: 0.8rem;
   }
+`;
+
+export const Title = styled.h2`
+  font-weight: 500;
+  font-size: 3rem;
+  margin-bottom: 1.25rem;
+  text-transform: capitalize;
 `;

@@ -5,7 +5,6 @@ import { SectionFilter } from "../../components/SectionFilter";
 
 import { useFetch } from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
-import { capitalize } from "../../utils/capitalize";
 
 interface Category {
   id: number;
@@ -16,16 +15,21 @@ interface Category {
 export function Category() {
   const { categoryName } = useParams();
   const { data: categories } = useFetch("category");
-  
+
   const category = categories?.find((cat: Category) => {
     return cat.name === categoryName;
   });
-  
+
   return (
     <section>
-      <Hero image={category?.image_link} title={capitalize(categoryName ?? '')} />
+      <Hero image={category?.image_link} title={categoryName as string} />
       <SectionFilter />
-      <ProductsSection page="shop" limit={16} />
+      <ProductsSection
+        title={categoryName as string}
+        limit={16}
+        buttonVariant="navigation"
+        path={`/category/${categoryName}`}
+      />
       <StoreInfo />
     </section>
   );

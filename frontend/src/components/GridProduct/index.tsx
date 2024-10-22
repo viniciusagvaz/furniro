@@ -1,6 +1,6 @@
 import * as S from "./styles";
 import { Button } from "../Buttons";
-import { Products } from "../../interfaces/products_interface";
+import { Products } from "../../interfaces/products.interface";
 import star from "../../assets/icons/star.svg";
 
 interface ProductGridProps {
