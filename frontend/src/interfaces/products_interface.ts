@@ -1,6 +1,6 @@
-import { Category } from "./categories_interface";
+import { Categories } from "./categories_interface";
 
-export interface Product {
+export interface Products {
   id: number;
   name: string;
   sku: string | null;
@@ -13,5 +13,5 @@ export interface Product {
   is_new: boolean;
   image_link: string | null;
   other_image_link?: string[];
-  category: Category[] | null;
+  category: Categories[];
 }

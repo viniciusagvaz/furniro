@@ -21,9 +21,10 @@ export const MenuItem = styled(Link)`
   }
 `;
 
-export const Icon = styled.span`
+export const Icon = styled.img`
   width: 22.17px;
   height: 22.17px;
   color: ${({ color }) => color};
   transition: all 0.6s ease;
 `;
+

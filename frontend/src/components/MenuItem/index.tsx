@@ -1,13 +1,13 @@
 import * as S from "./styles.js";
 
-interface IMenuItem {
+interface MenuItemProps {
   children?: string;
-  icon?: React.ReactNode;
   path: string;
   color?: string;
+  icon?: string;
 }
 
-export const MenuItem: React.FC<IMenuItem> = ({
+export const MenuItem: React.FC<MenuItemProps> = ({
   children,
   icon,
   path,
@@ -15,11 +15,7 @@ export const MenuItem: React.FC<IMenuItem> = ({
 }) => {
   return (
     <S.MenuItem to={`${path}`} style={{ color }}>
-      {icon && (
-        <S.Icon style={{ width: "22.17px", height: "22.17px", color: "red" }}>
-          {icon}
-        </S.Icon>
-      )}
+      {icon && <S.Icon src={icon} alt="#" />}
       {children}
     </S.MenuItem>
   );
