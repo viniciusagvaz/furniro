@@ -8,9 +8,12 @@ import hero from "../../assets/img/hero-shop.jpeg";
 export function Shop() {
   return (
     <section>
-      <Hero image={hero}  title="Shop" />
+      <Hero image={hero} title="Shop" />
       <SectionFilter />
-      <ProductsSection page="shop" limit={16} />
+      <ProductsSection
+        limit={16}
+        buttonVariant={"navigation"}
+      />
       <StoreInfo />
     </section>
   );

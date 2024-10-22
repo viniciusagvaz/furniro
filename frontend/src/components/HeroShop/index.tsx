@@ -1,3 +1,5 @@
+import { capitalize } from "../../utils/capitalize.js";
+import { MenuItem } from "../MenuItem/styles.js";
 import * as S from "./styles.js";
 
 interface HeroProps {
@@ -10,10 +12,10 @@ export function Hero({ title, image }: HeroProps) {
     <S.Hero> 
       <S.HeroBg src={image} alt="hero" />
       <S.HeroContent>
-        <h2>{title}</h2>
+        <S.Title>{title}</S.Title>
 
         <span>
-          <p>Home</p>
+          <MenuItem to={"/home"} children={"Home"} />
           <svg
             width="8"
             height="14"
@@ -24,7 +26,7 @@ export function Hero({ title, image }: HeroProps) {
             <path d="M0 12L5 7L0 2L1 0L8 7L1 14L0 12Z" fill="black" />
           </svg>
 
-          <p>Shop</p>
+          <p>{capitalize(title)}</p>
         </span>
       </S.HeroContent>
     </S.Hero>

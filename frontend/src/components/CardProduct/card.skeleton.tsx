@@ -1,14 +1,12 @@
 import * as S from "./styles";
 
-
-
-export const SkeletonProductCard = () => {
+export function SkeletonProductCard() {
   return (
     <S.ProductCard>
       <S.Image src="" alt="Product Image" />
 
       <S.ProductInformation>
-        <S.Title>Loading...</ S.Title>
+        <S.Title>Loading...</S.Title>
         <S.Description />
         <S.PriceContainer>
           <S.DiscountedPrice />
@@ -16,4 +14,4 @@ export const SkeletonProductCard = () => {
       </S.ProductInformation>
     </S.ProductCard>
   );
-};
+}

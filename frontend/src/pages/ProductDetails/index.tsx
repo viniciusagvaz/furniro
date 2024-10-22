@@ -7,10 +7,10 @@ import { ProductsContext } from "../../contexts/products.context";
 import { useParams } from "react-router-dom";
 import { ProductGrid } from "../../components/GridProduct";
 import { LargeDescription } from "../../components/LargeDescription";
-import { Products } from "../../interfaces/products_interface";
+import { Products } from "../../interfaces/products.interface";
 import { BreadCrumbs } from "../../components/Breadcrumbs";
 
-export const ProductDetail = () => {
+export function ProductDetail() {
   const { products } = useContext(ProductsContext);
   const { productName } = useParams();
 
@@ -35,15 +35,20 @@ export const ProductDetail = () => {
   };
 
   const finalProduct: Products = product ?? defaultProduct;
+
   return (
-    <div>
-      <BreadCrumbs />
+    <div id="ProductDetails">
+      <BreadCrumbs product={finalProduct.name} />
       <ProductGrid product={[finalProduct]} />
       <LargeDescription
         description={finalProduct.description}
         largeDescription={finalProduct.large_description}
       />
-      <ProductsSection page="product" limit={4} title="Related Products" />
+      <ProductsSection
+        buttonVariant={"show"}
+        limit={4}
+        title={"Related Products"}
+      />
     </div>
   );
-};
+}

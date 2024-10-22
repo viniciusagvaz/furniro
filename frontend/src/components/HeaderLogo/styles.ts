@@ -4,6 +4,8 @@ export const Logo = styled.figure`
   display: flex;
   align-items: center;
   gap: .8rem;
+
+  cursor: pointer;
 `
 
 export const LogoImage = styled.img`
