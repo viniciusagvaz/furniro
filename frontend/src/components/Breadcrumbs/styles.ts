@@ -9,14 +9,20 @@ export const BreadCrumbs = styled.div`
 
   padding: 0 5rem;
 
-  p {
-    color: ${({ theme }) => theme["gray-300"]};
-  }
-
   span#Pipe {
-    height: 2rem;
-    border: 1px solid #000;
+    height: 37px;
+    border: 1px solid ${({ theme }) => theme["gray-300"]};
     opacity: 0.4;
   }
 `;
 
+export const BreadCrumbsLink = styled.a`
+  color: ${({ theme }) => theme["golden-brown"]};
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.25rem;
+`;
+
+export const Product = styled.p`
+  color: #000;
+`;

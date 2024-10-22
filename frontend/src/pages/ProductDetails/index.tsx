@@ -10,7 +10,7 @@ import { LargeDescription } from "../../components/LargeDescription";
 import { Products } from "../../interfaces/products_interface";
 import { BreadCrumbs } from "../../components/Breadcrumbs";
 
-export const ProductDetail = () => {
+export function ProductDetail() {
   const { products } = useContext(ProductsContext);
   const { productName } = useParams();
 
@@ -35,9 +35,10 @@ export const ProductDetail = () => {
   };
 
   const finalProduct: Products = product ?? defaultProduct;
+
   return (
     <div>
-      <BreadCrumbs />
+      <BreadCrumbs product={finalProduct.name} />
       <ProductGrid product={[finalProduct]} />
       <LargeDescription
         description={finalProduct.description}
@@ -46,4 +47,4 @@ export const ProductDetail = () => {
       <ProductsSection page="product" limit={4} title="Related Products" />
     </div>
   );
-};
+}
