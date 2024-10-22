@@ -27,3 +27,4 @@ export const Icon = styled.img`
   color: ${({ color }) => color};
   transition: all 0.6s ease;
 `;
+

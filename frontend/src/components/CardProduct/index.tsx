@@ -4,7 +4,7 @@ import * as S from "./styles";
 
 import share from "../../assets/icons/share.svg";
 import compare from "../../assets/icons/compare.svg";
-import heart from "../../assets/icons/heart.svg";
+import heart from "../../assets/icons/heart-wt.svg";
 
 import { capitalize } from "../../utils/capitalize";
 import { useNavigate } from "react-router-dom";
@@ -46,12 +46,12 @@ export const ProductCard: React.FC<CardProps> = ({
 
         {discount_price ? (
           <S.PriceContainer>
-            <S.DiscountedPrice>{`Rp ${discount_price}`}</S.DiscountedPrice>
-            <S.OldPrice>{`Rp ${price}`}</S.OldPrice>
+            <S.DiscountedPrice>{`$ ${discount_price}`}</S.DiscountedPrice>
+            <S.OldPrice>{`$ ${price}`}</S.OldPrice>
           </S.PriceContainer>
         ) : (
           <S.PriceContainer>
-            <S.Price>{`Rp ${price}`}</S.Price>
+            <S.Price>{`$ ${price}`}</S.Price>
           </S.PriceContainer>
         )}
       </S.ProductInformation>
@@ -59,14 +59,6 @@ export const ProductCard: React.FC<CardProps> = ({
       {is_new && <S.NewLabel>New</S.NewLabel>}
       {discount_percent && (
         <S.DiscountLabel>{`-${discount_percent}%`}</S.DiscountLabel>
-      )}
-      {is_new && discount_percent && (
-        <span style={{ display: "flex", gap: "0.5rem" }}>
-          <S.NewLabel style={{ right: "8%", top: "12.25%", zIndex: 0 }}>
-            New
-          </S.NewLabel>
-          <S.DiscountLabel>{`-${discount_percent}%`}</S.DiscountLabel>
-        </span>
       )}
 
       <S.HoverCardContent>

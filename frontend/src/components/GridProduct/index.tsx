@@ -8,6 +8,7 @@ interface ProductGridProps {
 }
 
 export const ProductGrid: React.FC<ProductGridProps> = ({ product }) => {
+
   return (
     <S.ProductGrid>
       {product.map((prod) => (

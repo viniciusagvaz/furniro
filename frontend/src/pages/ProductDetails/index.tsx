@@ -35,7 +35,6 @@ export const ProductDetail = () => {
   };
 
   const finalProduct: Products = product ?? defaultProduct;
-  console.log(finalProduct);
   return (
     <div>
       <BreadCrumbs />

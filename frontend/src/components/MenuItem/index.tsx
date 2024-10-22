@@ -2,9 +2,9 @@ import * as S from "./styles.js";
 
 interface MenuItemProps {
   children?: string;
-  icon?: string;
   path: string;
   color?: string;
+  icon?: string;
 }
 
 export const MenuItem: React.FC<MenuItemProps> = ({
