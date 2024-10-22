@@ -8,20 +8,36 @@ import { Product } from '@prisma/client';
 export class ProductsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(product: ProductDto) {
+  async create({
+    name,
+    sku,
+    category_id,
+    description,
+    large_description,
+    price,
+    discount_price,
+    discount_percent,
+    is_new,
+    image_link,
+    other_image_link,
+  }: ProductDto) {
     const createdProduct = await this.prisma.product.create({
       data: {
-        name: product.name,
-        sku: product.sku,
-        category_id: product.category_id,
-        description: product.description,
-        large_description: product.large_description,
-        price: product.price,
-        discount_price: product.discount_price,
-        discount_percent: product.discount_percent,
-        is_new: product.is_new,
-        image_link: product.image_link,
-        other_image_link: product.other_image_link,
+        name,
+        sku,
+        description,
+        large_description,
+        price,
+        discount_price,
+        discount_percent,
+        is_new,
+        image_link,
+        other_image_link,
+        category: {
+          connect: {
+            id: category_id,
+          },
+        },
       },
     });
 
@@ -42,6 +58,9 @@ export class ProductsService {
     return this.prisma.product.findMany({
       where: {
         category_id: parseInt(`${id}`),
+      },
+      include: {
+        category: true,
       },
     });
   }
