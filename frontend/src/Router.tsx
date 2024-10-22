@@ -3,7 +3,7 @@ import { Home } from "./pages/Home";
 import { DefaultLayout } from "./layout/index";
 import { UnderConstruction } from "./pages/UnderConst";
 import { Shop } from "./pages/Shop";
-import { ProductDetail } from "./pages/Product";
+import { ProductDetail } from "./pages/ProductDetails";
 import { Category } from "./pages/Category";
 
 export function Router() {

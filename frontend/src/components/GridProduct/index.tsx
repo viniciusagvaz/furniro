@@ -1,80 +1,90 @@
 import * as S from "./styles";
 import { Button } from "../Buttons";
-import { Product } from "../../interfaces/products_interface";
+import { Products } from "../../interfaces/products_interface";
+import star from "../../assets/icons/star.svg";
 
 interface ProductGridProps {
-  product: Product[];
+  product: Products[];
 }
 
 export const ProductGrid: React.FC<ProductGridProps> = ({ product }) => {
   return (
     <S.ProductGrid>
       {product.map((prod) => (
-        <div className={"container"}>
-          <div className={"other_image"}>
+        <div className={"container"} key={prod.id}>
+          <S.OtherImages className={"other_image"}>
             {prod.other_image_link?.map((image) => (
-              <img src={`${image}`} alt="#" />
+              <img src={`${image}`} alt={`${prod.name}`} key={`${prod.name}`} />
             ))}
-          </div>
+          </S.OtherImages>
 
-          <div className={"image"}>
-            <img src={`${prod.image_link}`} alt="#" />
-          </div>
+          <S.Image className={"image"}>
+            <img src={`${prod.image_link}`} alt={`${prod.name}`} />
+          </S.Image>
 
-          <div className={"details"}>
-            <h1>{`${prod.name}`}</h1>
-            <h2>${prod.price}</h2>
-            <span>****** | 5 Customer Review</span>
-            <p style={{ width: "424px" }}>{prod.description}</p>
-            <p>Size</p>
+          <S.Details className={"details"}>
+            <S.Name>{`${prod.name}`}</S.Name>
+            <S.Price>${prod.price}</S.Price>
+            <S.Rating>
+              <span className={"stars"}>
+                <img src={star} alt="" />
+                <img src={star} alt="" />
+                <img src={star} alt="" />
+                <img src={star} alt="" />
+                <img src={star} alt="" />
+              </span>
+              <span className={"pipe"}></span> <span>5 Customer Review</span>
+            </S.Rating>
+            <S.Description>{prod.description}</S.Description>
 
-            <span style={{ display: "flex", gap: ".5rem" }}>
-              <Button variant="navigation" children="L"></Button>
-              <Button variant="navigation" children="M"></Button>
-              <Button variant="navigation" children="S"></Button>
-            </span>
+            <S.SizesLabel htmlFor={"size"}>Size</S.SizesLabel>
+            <S.Sizes>
+              <Button variant="navigation" children="L" />
+              <Button variant="navigation" children="M" />
+              <Button variant="navigation" children="S" />
+            </S.Sizes>
 
-            <p>Color</p>
-            <span style={{ display: "flex", gap: "1.5rem" }}>
-              <div
-                style={{
-                  width: "30px",
-                  height: "30px",
-                  backgroundColor: "red",
-                  borderRadius: "50%",
-                }}
-              ></div>
-              <div
-                style={{
-                  width: "30px",
-                  height: "30px",
-                  backgroundColor: "red",
-                  borderRadius: "50%",
-                }}
-              ></div>
-              <div
-                style={{
-                  width: "30px",
-                  height: "30px",
-                  backgroundColor: "red",
-                  borderRadius: "50%",
-                }}
-              ></div>
-            </span>
+            <S.ColorsLabel htmlFor={"colors"}>Color</S.ColorsLabel>
+            <S.Colors name={"colors"}>
+              <S.Color />
+              <S.Color />
+              <S.Color />
+            </S.Colors>
 
-            <span style={{ display: "flex", gap: ".5rem" }}>
-              <Button variant="cart" children="- 1 +"></Button>
-              <Button variant="cart" children="Add To Cart"></Button>
-              <Button variant="cart" children="+ Compare"></Button>
-            </span>
-          </div>
+            <S.CartOptions>
+              <Button variant="cart" children="- 1 +" />
+              <Button variant="cart" children="Add To Cart" />
+              <Button variant="cart" children="+ Compare" />
+            </S.CartOptions>
+          </S.Details>
 
-          <div className={"extra_details"}>
-            <p>Sku: {prod.sku}</p>
-            <p>Category: {prod.category?.map((cat) => cat.name).join(", ")}</p>
-            <p>Tags: Sofas, Chair, Home, Shop</p>
-            <p>Sku: SS001</p>
-          </div>
+          <S.ExtraDetails className={"extra_details"}>
+            <S.ExtraDetail>
+              <S.Detail>Sku</S.Detail>
+              <span>:</span>
+              <S.DetailValue> {prod.sku}</S.DetailValue>
+            </S.ExtraDetail>
+
+            <S.ExtraDetail>
+              <S.Detail>Category</S.Detail>
+              <span>:</span>
+              <S.DetailValue>
+                {prod.category?.map((cat) => cat.name).join(", ")}
+              </S.DetailValue>
+            </S.ExtraDetail>
+
+            <S.ExtraDetail>
+              <S.Detail>Tags: </S.Detail>
+              <span>:</span>
+              <S.DetailValue>Sofas, Chair, Home, Shop</S.DetailValue>
+            </S.ExtraDetail>
+
+            <S.ExtraDetail>
+              <S.Detail>Socials:</S.Detail>
+              <span>:</span>
+              <S.DetailValue>Facebook, Twitter, Instagram</S.DetailValue>
+            </S.ExtraDetail>
+          </S.ExtraDetails>
         </div>
       ))}
     </S.ProductGrid>

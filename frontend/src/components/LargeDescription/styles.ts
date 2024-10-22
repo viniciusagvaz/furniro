@@ -14,3 +14,18 @@ export const LargeDescription = styled.div`
 
   text-align: justify;
 `;
+
+export const Buttons = styled.span`
+  display: flex;
+  gap: 3rem;
+`;
+
+export const Description = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.5rem;
+  line-height: 1.5;
+  color: ${({ theme }) => theme["gray-300"]};
+`;

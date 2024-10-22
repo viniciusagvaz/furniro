@@ -7,18 +7,18 @@ import { ProductsContext } from "../../contexts/products.context";
 import { useParams } from "react-router-dom";
 import { ProductGrid } from "../../components/GridProduct";
 import { LargeDescription } from "../../components/LargeDescription";
-import { Product } from "../../interfaces/products_interface";
+import { Products } from "../../interfaces/products_interface";
 import { BreadCrumbs } from "../../components/Breadcrumbs";
 
 export const ProductDetail = () => {
   const { products } = useContext(ProductsContext);
   const { productName } = useParams();
 
-  const product: Product | undefined = products?.find(
+  const product: Products | undefined = products?.find(
     (product) => product.name === productName
   );
 
-  const defaultProduct: Product = {
+  const defaultProduct: Products = {
     id: 0,
     name: "",
     sku: "",
@@ -34,18 +34,17 @@ export const ProductDetail = () => {
     category: [],
   };
 
-  const finalProduct: Product = product ?? defaultProduct;
-
+  const finalProduct: Products = product ?? defaultProduct;
+  console.log(finalProduct);
   return (
     <div>
       <BreadCrumbs />
       <ProductGrid product={[finalProduct]} />
-      <LargeDescription />
-      <ProductsSection
-        page="product"
-        limit={4}
-        title="Related Products"
-      ></ProductsSection>
+      <LargeDescription
+        description={finalProduct.description}
+        largeDescription={finalProduct.large_description}
+      />
+      <ProductsSection page="product" limit={4} title="Related Products" />
     </div>
   );
 };

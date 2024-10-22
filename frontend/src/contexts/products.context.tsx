@@ -2,15 +2,15 @@ import { createContext } from "react";
 import { useFetch } from "../hooks/useFetch";
 import { SkeletonProductCard } from "../components/CardProduct/card.skeleton";
 
-import { Product } from "../interfaces/products_interface";
+import { Products } from "../interfaces/products_interface";
 
-interface ProductsContextValue {
-  products: Product[] ;
+interface ProductsContext {
+  products: Products[] ;
   loading: boolean;
   error: Error | null;
 }
 
-export const ProductsContext = createContext<ProductsContextValue>({
+export const ProductsContext = createContext<ProductsContext>({
   products: [],
   loading: false,
   error: null,
