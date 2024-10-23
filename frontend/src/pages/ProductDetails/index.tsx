@@ -1,16 +1,16 @@
-// import * as S from "./styles";
-
 import { ProductsSection } from "../../components/SectionProduct/index";
-
-import { useParams } from "react-router-dom";
 import { ProductGrid } from "../../components/GridProduct";
 import { LargeDescription } from "../../components/LargeDescription";
 import { Products } from "../../interfaces/products.interface";
 import { BreadCrumbs } from "../../components/Breadcrumbs";
-import { useFetch } from "../../hooks/useFetch";
+
+import { useParams } from "react-router-dom";
+import { useGetAllProducts } from "../../data/getProductsListApi";
+import { useGetProductsByCategory } from "../../data/getProductsByCategory";
 
 export function ProductDetail() {
-  const { data: products } = useFetch("products");
+  const products = useGetAllProducts();
+  const productsByCategory = useGetProductsByCategory(1);
   const { productName } = useParams();
 
   const product: Products | undefined = products?.find(
@@ -47,8 +47,7 @@ export function ProductDetail() {
         buttonVariant={"show"}
         limit={4}
         title={"Related Products"}
-
-        products={products}
+        products={productsByCategory}
       />
     </div>
   );

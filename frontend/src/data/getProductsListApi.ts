@@ -1,6 +1,6 @@
 import { useFetch } from "../hooks/useFetch";
 
-export function useCategoriesApi() {
+export function useGetAllProducts() {
   const { data: products } = useFetch("products");
   return products;
 }
