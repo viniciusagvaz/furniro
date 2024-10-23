@@ -12,14 +12,14 @@ import { useGetProductsByCategory } from "../../data/getProductsByCategory";
 import { Button } from "../../components/Buttons";
 import { useState } from "react";
 import { useNavigateTo } from "../../hooks/useNavigateTo";
+import { Loader } from "../../components/Loader";
+import { ErrorPage } from "../ErrorPage";
 
 export function ProductDetail() {
-  const products = useGetAllProducts();
+  const { products, loading, error } = useGetAllProducts();
   const { productName } = useParams();
 
-  const product: Products = products?.find(
-    (product) => product.name === productName
-  );
+  const product = products?.find((product) => product.name === productName);
 
   const defaultProduct: Products = {
     id: 0,
@@ -59,6 +59,15 @@ export function ProductDetail() {
     }
   };
 
+  if (loading) {
+    return <Loader />;
+  }
+
+  
+  if (error) {
+    return <ErrorPage statusCode={error.status}/>;
+  }
+
   return (
     <S.ProductDetailContainer id="ProductDetails">
       <BreadCrumbs product={currentProduct.name} />
@@ -71,7 +80,7 @@ export function ProductDetail() {
         <ProductsSection
           limit={limit}
           title={"Related Products"}
-          products={productsFromCategory}
+          products={productsFromCategory.products}
         />
         <Button
           variant={"show"}

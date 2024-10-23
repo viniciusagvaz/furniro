@@ -11,7 +11,7 @@ interface CategoryProps {
 }
 
 export function CategoriesSection() {
-  const { data: categories, loading } = useGetCategories();
+  const { categories, loading } = useGetCategories();
 
   if (loading) {
     return (

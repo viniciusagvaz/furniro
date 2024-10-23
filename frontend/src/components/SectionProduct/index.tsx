@@ -28,8 +28,6 @@ export function ProductsSection({
           <ProductCard
             key={product.id}
             {...product}
-            description={product.description ?? ""}
-            image_link={product.image_link ?? ""}
           />
         ))}
       </S.ProductsContent>

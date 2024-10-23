@@ -1,7 +1,7 @@
 import { useFetch } from "../hooks/useFetch";
 
-export function useGetCategories(){
-  const { data, loading } = useFetch("category");
+export function useGetCategories() {
+  const { data: categories, loading, error } = useFetch("category");
 
-  return { data, loading };
+  return { categories, loading, error };
 }

@@ -9,7 +9,7 @@ export const BreadCrumbs = styled.div`
 
   padding: 0 5rem;
 
-  span#Pipe {
+  span.pipe {
     height: 37px;
     border: 1px solid ${({ theme }) => theme["gray-300"]};
     opacity: 0.4;

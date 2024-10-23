@@ -7,11 +7,20 @@ import { StoreInfo } from "../../components/InfoStore";
 import { useNavigateTo } from "../../hooks/useNavigateTo";
 import { useGetAllProducts } from "../../data/getProductsListApi";
 import { Button } from "../../components/Buttons";
+import { Loader } from "../../components/Loader";
+import { ErrorPage } from "../ErrorPage";
 
 export function Home() {
-  const products = useGetAllProducts();
-
+  const { products, loading, error } = useGetAllProducts();
   const navigateTo = useNavigateTo("/shop");
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <ErrorPage statusCode={error.status}/>;
+  }
 
   return (
     <S.HomeContainer>
