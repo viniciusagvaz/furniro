@@ -5,16 +5,16 @@ import * as S from "./styles";
 import { useNavigate } from "react-router-dom";
 
 interface CardProps {
-  id: number,
+  id: number;
   name: string;
   image_link: string;
 }
 
-export const CardCategory: React.FC<CardProps> = ({ name, image_link }) => {
+export const CardCategory: React.FC<CardProps> = ({ id, name, image_link }) => {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate(`/category/${name}`);
+    navigate(`/category/${id}`);
   };
 
   return (
@@ -22,7 +22,11 @@ export const CardCategory: React.FC<CardProps> = ({ name, image_link }) => {
       <S.Image src={image_link} alt={``} />
       <S.Title>{capitalize(name)}</S.Title>
       <S.HoverCardContent>
-        <Button variant="newsletter" children="View Selection" onClick={handleNavigate} />
+        <Button
+          variant="newsletter"
+          children="View Selection"
+          onClick={handleNavigate}
+        />
       </S.HoverCardContent>
     </S.Card>
   );

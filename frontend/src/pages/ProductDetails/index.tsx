@@ -1,17 +1,16 @@
 // import * as S from "./styles";
 
-import { useContext } from "react";
 import { ProductsSection } from "../../components/SectionProduct/index";
-import { ProductsContext } from "../../contexts/products.context";
 
 import { useParams } from "react-router-dom";
 import { ProductGrid } from "../../components/GridProduct";
 import { LargeDescription } from "../../components/LargeDescription";
 import { Products } from "../../interfaces/products.interface";
 import { BreadCrumbs } from "../../components/Breadcrumbs";
+import { useFetch } from "../../hooks/useFetch";
 
 export function ProductDetail() {
-  const { products } = useContext(ProductsContext);
+  const { data: products } = useFetch("products");
   const { productName } = useParams();
 
   const product: Products | undefined = products?.find(
@@ -48,6 +47,8 @@ export function ProductDetail() {
         buttonVariant={"show"}
         limit={4}
         title={"Related Products"}
+
+        products={products}
       />
     </div>
   );

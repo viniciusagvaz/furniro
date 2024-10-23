@@ -3,11 +3,9 @@ import { ProductCard } from "../CardProduct";
 import { SectionTitle } from "../TitleSection";
 
 import * as S from "./styles";
-import { useContext } from "react";
-import { ProductsContext } from "../../contexts/products.context";
 import { useNavigateTo } from "../../hooks/useNavigateTo";
 import { DisplayOptions } from "../../interfaces/display_limiter.interface";
-import { SkeletonProductCard } from "../CardProduct/card.skeleton";
+import { Products } from "../../interfaces/products.interface";
 
 interface ProductsSectionProps {
   displayedProducts?: DisplayOptions;
@@ -15,6 +13,7 @@ interface ProductsSectionProps {
   title?: string;
   path?: string | null;
   buttonVariant: "show" | "details" | "navigation" | "cart" | "newsletter";
+  products: Products[];
 }
 
 export function ProductsSection({
@@ -22,14 +21,10 @@ export function ProductsSection({
   title,
   path,
   buttonVariant,
+  products,
 }: ProductsSectionProps) {
-  const { products, loading } = useContext(ProductsContext);
   const displayedProducts = products?.filter((_, index) => index < limit);
   const navigateTo = useNavigateTo(path ?? "");
-
-  if (loading) {
-    return <SkeletonProductCard />;
-  }
 
   return (
     <S.ProductsSection id="ProductsSection">

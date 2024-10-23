@@ -56,7 +56,7 @@ export const Image = styled.div`
   }
 `;
 
-export const Details = styled.dl`
+export const Details = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -64,20 +64,20 @@ export const Details = styled.dl`
   grid-area: details;
 `;
 
-export const Name = styled.dt`
+export const Name = styled.p`
   text-transform: capitalize;
   font-size: 3rem;
   line-height: 63px;
 `;
 
-export const Price = styled.dd`
+export const Price = styled.p`
   color: ${({ theme }) => theme["gray-300"]};
   font-size: 1.5rem;
   font-weight: 500;
   line-height: 36px;
 `;
 
-export const Rating = styled.dd`
+export const Rating = styled.span`
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -97,7 +97,7 @@ export const Rating = styled.dd`
   }
 `;
 
-export const Description = styled.dd`
+export const Description = styled.p`
   max-width: 424px;
   width: 100%;
 
@@ -144,7 +144,7 @@ export const CartOptions = styled.form`
   margin-bottom: 2rem;
 `;
 
-export const ExtraDetails = styled.dd`
+export const ExtraDetails = styled.div`
   border-top: 1px solid ${({ theme }) => theme["gray-200"]};
   display: flex;
   flex-direction: column;
@@ -164,6 +164,6 @@ export const ExtraDetail = styled.span`
   gap: 0.5rem;
 `;
 
-export const Detail = styled.dt``;
+export const Detail = styled.p``;
 
-export const DetailValue = styled.dd``;
+export const DetailValue = styled.p``;
