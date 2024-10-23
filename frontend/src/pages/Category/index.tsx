@@ -1,12 +1,12 @@
 import { ProductsSection } from "../../components/SectionProduct";
 import { Hero } from "../../components/HeroShop";
 import { StoreInfo } from "../../components/InfoStore";
-import { SectionFilter } from "../../components/SectionFilter";
 
 import { useFetch } from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
 import { useGetProductsByCategory } from "../../data/getProductsByCategory";
 import { Products } from "../../interfaces/products.interface";
+import { SectionSort } from "../../components/SectionSort";
 
 interface Category {
   id: number;
@@ -27,7 +27,7 @@ export function Category() {
   return (
     <section>
       <Hero image={category?.image_link} title={category?.name} />
-      <SectionFilter />
+      <SectionSort />
       <ProductsSection
         title={"Products"}
         limit={16}

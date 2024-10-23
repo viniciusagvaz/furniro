@@ -46,6 +46,9 @@ export const Image = styled.div`
   max-width: 481px;
   height: 500px;
 
+  background-color: ${({ theme }) => theme["yellow-200"]};
+  border-radius: 10px;
+
   img {
     max-width: 481px;
     width: 100%;
@@ -83,7 +86,7 @@ export const Rating = styled.span`
   justify-content: flex-start;
   gap: 1.5rem;
   color: ${({ theme }) => theme["gray-300"]};
-  font-size: .75rem;
+  font-size: 0.75rem;
 
   span.pipe {
     height: 30px;
@@ -101,7 +104,7 @@ export const Description = styled.p`
   max-width: 424px;
   width: 100%;
 
-  font-size: .5rem;
+  font-size: 0.5rem;
   line-height: 19.5px;
 `;
 
@@ -166,4 +169,6 @@ export const ExtraDetail = styled.span`
 
 export const Detail = styled.p``;
 
-export const DetailValue = styled.p``;
+export const DetailValue = styled.p`
+  text-transform: capitalize;
+`;
