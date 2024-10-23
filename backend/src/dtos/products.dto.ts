@@ -48,7 +48,7 @@ export class ProductDto {
   @IsString({ each: true })
   other_image_link: string[];
 
-  @IsString()
-  category: string;
+  @IsArray()
+  category: [];
 }
 
