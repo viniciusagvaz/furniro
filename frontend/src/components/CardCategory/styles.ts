@@ -5,7 +5,8 @@ export const Title = styled.h2`
   font-weight: 700;
   font-size: 1.5rem;
   color: ${({ theme }) => theme["gray-500"]};
-  text-align: center;
+  text-align: center; 
+  text-transform: capitalize;
 
   transition: all 0.6s ease-in-out;
 `;

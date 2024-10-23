@@ -4,10 +4,10 @@ import * as S from "./styles";
 
 import share from "../../assets/icons/share.svg";
 import compare from "../../assets/icons/compare.svg";
-import heart from "../../assets/icons/heart.svg";
+import heart from "../../assets/icons/heart-wt.svg";
 
 import { capitalize } from "../../utils/capitalize";
-import { useNavigate } from "react-router-dom";
+import { useNavigateTo } from "../../hooks/useNavigateTo";
 
 interface CardProps {
   id: number;
@@ -30,11 +30,7 @@ export const ProductCard: React.FC<CardProps> = ({
   is_new,
   image_link,
 }) => {
-  const navigate = useNavigate();
-
-  const handleNavigate = () => {
-    navigate(`/product/${name}`);
-  };
+  const navigateTo = useNavigateTo(`/product/${name}`);
 
   return (
     <S.ProductCard id={name}>
@@ -62,11 +58,7 @@ export const ProductCard: React.FC<CardProps> = ({
       )}
 
       <S.HoverCardContent>
-        <Button
-          variant="details"
-          children="See Details"
-          onClick={handleNavigate}
-        />
+        <Button variant="details" children="See Details" onClick={navigateTo} />
         <S.Actions>
           <li>
             <MenuItem icon={share} path="/" children={"Share"} color={"#fff"} />

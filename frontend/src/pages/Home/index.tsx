@@ -1,28 +1,32 @@
+import * as S from "./styles";
+
 import { CategoriesSection } from "../../components/SectionCategory";
 import { Hero } from "../../components/HeroHome";
 import { ProductsSection } from "../../components/SectionProduct";
 import { StoreInfo } from "../../components/InfoStore";
-import { HomeContainer } from "./styles";
 import { useNavigateTo } from "../../hooks/useNavigateTo";
 import { useGetAllProducts } from "../../data/getProductsListApi";
+import { Button } from "../../components/Buttons";
 
 export function Home() {
   const products = useGetAllProducts();
-  console.log(products)
-  useNavigateTo("/shop");
+
+  const navigateTo = useNavigateTo("/shop");
 
   return (
-    <HomeContainer>
+    <S.HomeContainer>
       <Hero />
       <CategoriesSection />
-      <ProductsSection
-        limit={4}
-        title={"Our Products"}
-        path="/shop"
-        buttonVariant="show"
-        products={products}
-      />
+      <S.OurProductsContainer>
+        <ProductsSection
+          limit={4}
+          title={"Our Products"}
+          path="/shop"
+          products={products}
+        />
+        <Button variant={"show"} children={"Show More"} onClick={navigateTo} />
+      </S.OurProductsContainer>
       <StoreInfo />
-    </HomeContainer>
+    </S.HomeContainer>
   );
 }

@@ -1,3 +1,5 @@
+import * as S from "./styles";
+
 import { ProductsSection } from "../../components/SectionProduct/index";
 import { ProductGrid } from "../../components/GridProduct";
 import { LargeDescription } from "../../components/LargeDescription";
@@ -9,12 +11,13 @@ import { useGetAllProducts } from "../../data/getProductsListApi";
 import { useGetProductsByCategory } from "../../data/getProductsByCategory";
 import { Button } from "../../components/Buttons";
 import { useState } from "react";
+import { useNavigateTo } from "../../hooks/useNavigateTo";
 
 export function ProductDetail() {
   const products = useGetAllProducts();
   const { productName } = useParams();
 
-  const product: Products | undefined = products?.find(
+  const product: Products = products?.find(
     (product) => product.name === productName
   );
 
@@ -43,43 +46,39 @@ export function ProductDetail() {
   const [limit, setLimit] = useState(4);
   const [showMoreClicked, setShowMoreClicked] = useState(false);
 
+  const navigateToCategory = useNavigateTo(
+    `/category/${currentProduct.category_id}`
+  );
+
   const handleShowMore = () => {
     if (!showMoreClicked) {
       setLimit(limit + 4);
       setShowMoreClicked(true);
     } else {
-      window.location.replace(`/category/${currentProduct.category_id}`);
+      navigateToCategory();
     }
   };
 
   return (
-    <div id="ProductDetails">
+    <S.ProductDetailContainer id="ProductDetails">
       <BreadCrumbs product={currentProduct.name} />
       <ProductGrid product={[currentProduct]} />
       <LargeDescription
         description={currentProduct.description}
         largeDescription={currentProduct.large_description}
       />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <S.RelatedProductsContainer>
         <ProductsSection
-          buttonVariant={"show"}
           limit={limit}
           title={"Related Products"}
           products={productsFromCategory}
         />
         <Button
-          onClick={handleShowMore}
           variant={"show"}
           children={"Show More"}
+          onClick={handleShowMore}
         />
-      </div>
-    </div>
+      </S.RelatedProductsContainer>
+    </S.ProductDetailContainer>
   );
 }

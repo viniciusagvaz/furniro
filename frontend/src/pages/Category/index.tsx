@@ -1,3 +1,5 @@
+import * as S from "./styles";
+
 import { ProductsSection } from "../../components/SectionProduct";
 import { Hero } from "../../components/HeroShop";
 import { StoreInfo } from "../../components/InfoStore";
@@ -7,6 +9,7 @@ import { useGetProductsByCategory } from "../../data/getProductsByCategory";
 import { Products } from "../../interfaces/products.interface";
 import { SectionSort } from "../../components/SectionSort";
 import { useGetCategories } from "../../data/getCategoriesListApi";
+import { Button } from "../../components/Buttons";
 
 interface Category {
   id: number;
@@ -25,15 +28,18 @@ export function Category() {
   });
 
   return (
-    <section>
+    <S.CategoryContainer>
       <Hero image={category?.image_link} title={category?.name} />
       <SectionSort />
-      <ProductsSection
-        limit={16}
-        buttonVariant="navigation"
-        products={products}
-      />
+      <S.CategoryProductsContainer>
+        <ProductsSection limit={16} products={products} />
+        <S.ProductsNavigationContainer>
+          <Button variant={"navigation"} children={"Next"} />
+          <Button variant={"navigation"} children={"Next"} />
+          <Button variant={"navigation"} children={"Next"} />
+        </S.ProductsNavigationContainer>
+      </S.CategoryProductsContainer>
       <StoreInfo />
-    </section>
+    </S.CategoryContainer>
   );
 }
