@@ -1,8 +1,6 @@
-import { capitalize } from "../../utils/capitalize";
+import { useNavigateTo } from "../../hooks/useNavigateTo";
 import { Button } from "../Buttons";
 import * as S from "./styles";
-
-import { useNavigate } from "react-router-dom";
 
 interface CardProps {
   id: number;
@@ -11,21 +9,17 @@ interface CardProps {
 }
 
 export const CardCategory: React.FC<CardProps> = ({ id, name, image_link }) => {
-  const navigate = useNavigate();
-
-  const handleNavigate = () => {
-    navigate(`/category/${id}`);
-  };
+  const navigateTo = useNavigateTo(`/category/${id}`);
 
   return (
     <S.Card id={name}>
-      <S.Image src={image_link} alt={``} />
-      <S.Title>{capitalize(name)}</S.Title>
+      <S.Image src={image_link} alt={`${name} image`} />
+      <S.Title>{name}</S.Title>
       <S.HoverCardContent>
         <Button
           variant="newsletter"
           children="View Selection"
-          onClick={handleNavigate}
+          onClick={navigateTo}
         />
       </S.HoverCardContent>
     </S.Card>

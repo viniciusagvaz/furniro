@@ -1,9 +1,7 @@
-import { Button } from "../Buttons";
 import { ProductCard } from "../CardProduct";
 import { SectionTitle } from "../TitleSection";
 
 import * as S from "./styles";
-import { useNavigateTo } from "../../hooks/useNavigateTo";
 import { DisplayOptions } from "../../interfaces/display_limiter.interface";
 import { Products } from "../../interfaces/products.interface";
 
@@ -12,22 +10,18 @@ interface ProductsSectionProps {
   limit: number;
   title?: string;
   path?: string | null;
-  buttonVariant: "show" | "details" | "navigation" | "cart" | "newsletter";
   products: Products[];
 }
 
 export function ProductsSection({
   limit,
   title,
-  path,
-  buttonVariant,
   products,
 }: ProductsSectionProps) {
   const displayedProducts = products?.filter((_, index) => index < limit);
-  const navigateTo = useNavigateTo(path ?? "");
 
   return (
-    <S.ProductsSection id="ProductsSection">
+    <S.ProductsSection>
       <SectionTitle children={title} fontSize="2.5rem" />
       <S.ProductsContent>
         {displayedProducts?.map((product) => (
@@ -39,12 +33,6 @@ export function ProductsSection({
           />
         ))}
       </S.ProductsContent>
-
-      <Button
-        variant={buttonVariant}
-        children="Show More"
-        onClick={navigateTo}
-      />
     </S.ProductsSection>
   );
 }
