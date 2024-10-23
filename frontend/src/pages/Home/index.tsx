@@ -8,6 +8,7 @@ import { useGetAllProducts } from "../../data/getProductsListApi";
 
 export function Home() {
   const products = useGetAllProducts();
+  console.log(products)
   useNavigateTo("/shop");
 
   return (

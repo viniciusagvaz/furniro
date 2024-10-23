@@ -10,13 +10,12 @@ import { useGetProductsByCategory } from "../../data/getProductsByCategory";
 
 export function ProductDetail() {
   const products = useGetAllProducts();
-  const productsByCategory = useGetProductsByCategory(1);
   const { productName } = useParams();
-
+  
   const product: Products | undefined = products?.find(
     (product) => product.name === productName
   );
-
+  
   const defaultProduct: Products = {
     id: 0,
     name: "",
@@ -32,9 +31,10 @@ export function ProductDetail() {
     other_image_link: [],
     category: [],
   };
-
+  
   const finalProduct: Products = product ?? defaultProduct;
-
+  const productsFromCategory = useGetProductsByCategory(Number(finalProduct.category_id));
+  
   return (
     <div id="ProductDetails">
       <BreadCrumbs product={finalProduct.name} />
@@ -42,12 +42,12 @@ export function ProductDetail() {
       <LargeDescription
         description={finalProduct.description}
         largeDescription={finalProduct.large_description}
-      />
+        />
       <ProductsSection
         buttonVariant={"show"}
         limit={4}
         title={"Related Products"}
-        products={productsByCategory}
+        products={productsFromCategory}
       />
     </div>
   );

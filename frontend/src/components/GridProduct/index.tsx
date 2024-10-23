@@ -8,7 +8,7 @@ interface ProductGridProps {
 }
 
 export const ProductGrid: React.FC<ProductGridProps> = ({ product }) => {
-
+  console.log(product);
   return (
     <S.ProductGrid>
       {product.map((prod) => (
@@ -63,15 +63,13 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ product }) => {
             <S.ExtraDetail>
               <S.Detail>Sku</S.Detail>
               <span>:</span>
-              <S.DetailValue> {prod.sku}</S.DetailValue>
+              <S.DetailValue>{prod.sku}</S.DetailValue>
             </S.ExtraDetail>
 
             <S.ExtraDetail>
               <S.Detail>Category</S.Detail>
               <span>:</span>
-              <S.DetailValue>
-                {prod.category?.map((cat) => cat.name).join(", ")}
-              </S.DetailValue>
+              <S.DetailValue>{prod.category["name"]}</S.DetailValue>
             </S.ExtraDetail>
 
             <S.ExtraDetail>
