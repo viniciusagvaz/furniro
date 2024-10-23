@@ -1,10 +1,8 @@
 import { useFetch } from "../hooks/useFetch";
 
-interface ProductsId {
-  category_id: number;
-}
 
-export function useCategoriesApi(category_id: number): ProductsId[] {
+export function useGetProductsByCategory(category_id: number){
   const { data: products } = useFetch(`products/category/${category_id}`);
+
   return products;
 }

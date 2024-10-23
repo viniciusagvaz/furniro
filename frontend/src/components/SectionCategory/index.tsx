@@ -2,7 +2,7 @@ import * as S from "./styles";
 
 import { SectionTitle } from "../TitleSection";
 import { CardCategory } from "../CardCategory";
-import { useFetch } from "../../hooks/useFetch";
+import { useGetCategories } from "../../data/getCategoriesListApi";
 
 interface CategoryProps {
   id: number;
@@ -11,10 +11,8 @@ interface CategoryProps {
 }
 
 export function CategoriesSection() {
-  const { data: categories, loading } = useFetch("category");
+  const { data: categories, loading } = useGetCategories();
 
-  
-  
   if (loading) {
     return (
       <S.CategoriesSection>

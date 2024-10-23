@@ -4,10 +4,10 @@ import { ProductsSection } from "../../components/SectionProduct";
 import { StoreInfo } from "../../components/InfoStore";
 import { HomeContainer } from "./styles";
 import { useNavigateTo } from "../../hooks/useNavigateTo";
-import { useFetch } from "../../hooks/useFetch";
+import { useGetAllProducts } from "../../data/getProductsListApi";
 
 export function Home() {
-  const { data: products } = useFetch("products");
+  const products = useGetAllProducts();
   useNavigateTo("/shop");
 
   return (
