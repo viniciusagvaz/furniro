@@ -5,7 +5,7 @@ import { StoreInfo } from "../../components/InfoStore";
 import { SectionFilter } from "../../components/SectionFilter";
 import { Hero } from "../../components/HeroShop";
 
-import { useGetAllProducts } from "../../data/getProductsListApi";
+import { useGetAllProducts } from "../../hooks/useGetAllProducts";
 
 import hero from "../../assets/img/hero-shop.jpeg";
 import { Button } from "../../components/Buttons";

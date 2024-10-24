@@ -2,7 +2,7 @@ import * as S from "./styles";
 
 import { SectionTitle } from "../TitleSection";
 import { CardCategory } from "../CardCategory";
-import { useGetCategories } from "../../data/getCategoriesListApi";
+import { useGetCategories } from "../../hooks/useGetCategories";
 
 interface CategoryProps {
   id: number;

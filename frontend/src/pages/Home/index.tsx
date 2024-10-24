@@ -5,7 +5,7 @@ import { Hero } from "../../components/HeroHome";
 import { ProductsSection } from "../../components/SectionProduct";
 import { StoreInfo } from "../../components/InfoStore";
 import { useNavigateTo } from "../../hooks/useNavigateTo";
-import { useGetAllProducts } from "../../data/getProductsListApi";
+import { useGetAllProducts } from "../../hooks/useGetAllProducts";
 import { Button } from "../../components/Buttons";
 import { Loader } from "../../components/Loader";
 import { ErrorPage } from "../ErrorPage";

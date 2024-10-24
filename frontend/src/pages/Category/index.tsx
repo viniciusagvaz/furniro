@@ -5,9 +5,9 @@ import { Hero } from "../../components/HeroShop";
 import { StoreInfo } from "../../components/InfoStore";
 
 import { useParams } from "react-router-dom";
-import { useGetProductsByCategory } from "../../data/getProductsByCategory";
+import { useGetProductsByCategory } from "../../hooks/useGetProductsByCategory";
 import { SectionSort } from "../../components/SectionSort";
-import { useGetCategories } from "../../data/getCategoriesListApi";
+import { useGetCategories } from "../../hooks/useGetCategories";
 import { Button } from "../../components/Buttons";
 import { Loader } from "../../components/Loader";
 import { ErrorPage } from "../ErrorPage";
