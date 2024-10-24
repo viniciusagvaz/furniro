@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { ProductDto } from '../dtos/products.dto';
-
 import { PrismaService } from '../prisma/prisma.service';
 import { Product } from '@prisma/client';
 import { UpdateProductDto } from 'src/dtos/update_product.dto';
@@ -45,12 +44,42 @@ export class ProductsService {
     return createdProduct;
   }
 
-  async getAll() {
-    return this.prisma.product.findMany({
+  async getAll(
+    limit?: number,
+    offset?: number,
+    order?: string,
+    order_by?: 'ASC' | 'DESC',
+    category_id?: number,
+  ) {
+    const result = await this.prisma.product.findMany({
       include: {
         category: true,
       },
     });
+
+    if (limit && offset) {
+      return result.slice(offset, limit);
+    }
+
+    if (order && order_by) {
+      return result.sort((a, b) => {
+        if (order_by === 'ASC') {
+          return a[order] - b[order];
+        } else {
+          return b[order] - a[order];
+        }
+      });
+    }
+
+    if (category_id) {
+      return result.filter((product) => product.category_id === category_id);
+    }
+    
+    if (limit) {
+      return result.slice(0, limit);
+    }
+
+    return result;
   }
 
   async getById(id: number) {
