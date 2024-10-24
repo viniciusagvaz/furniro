@@ -7,8 +7,8 @@ import { Products } from "../../interfaces/products.interface";
 import { BreadCrumbs } from "../../components/Breadcrumbs";
 
 import { useParams } from "react-router-dom";
-import { useGetAllProducts } from "../../data/getProductsListApi";
-import { useGetProductsByCategory } from "../../data/getProductsByCategory";
+import { useGetAllProducts } from "../../hooks/useGetAllProducts";
+import { useGetProductsByCategory } from "../../hooks/useGetProductsByCategory";
 import { Button } from "../../components/Buttons";
 import { useState } from "react";
 import { useNavigateTo } from "../../hooks/useNavigateTo";
@@ -63,9 +63,8 @@ export function ProductDetail() {
     return <Loader />;
   }
 
-  
   if (error) {
-    return <ErrorPage statusCode={error.status}/>;
+    return <ErrorPage statusCode={error.status} />;
   }
 
   return (
