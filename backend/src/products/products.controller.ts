@@ -4,14 +4,16 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { ProductDto } from 'src/dtos/products.dto';
 import { Product } from '@prisma/client';
 
-@Controller('products') 
+@Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
@@ -21,38 +23,49 @@ export class ProductsController {
   }
 
   @Get()
-  findAll() {
-    return this.productsService.findAll();
+  async getAll() {
+    const result = await this.productsService.getAll();
+    return result;
+  }
+
+  @Get('/limit')
+  async getLimitedProductsAmount(@Query('a', ParseIntPipe) amount?: number) {
+    const result = await this.productsService.getLimitedProductsAmount(amount);
+    return result;
+  }
+
+  @Get('/chubidubi')
+  async getProductsByCategoryId(
+    @Query('category_id', ParseIntPipe) category_id: number,
+  ) {
+    return this.productsService.getProductsByCategoryId(category_id);
   }
 
   @Get('/:id')
-  findById(@Param('id') id: number) {
-    return this.productsService.findById(id); 
+  getById(@Param('id', ParseIntPipe) id: number) {
+    return this.productsService.getById(id);
   }
 
-  @Get('/category/:id')
-  findByCategoryId(@Param('id') id: number) {
-    return this.productsService.findByCategoryId(id);
+  @Get('/category/:category_id')
+  getByCategoryId(@Param('category_id', ParseIntPipe) category_id: number) {
+    return this.productsService.getProductsByCategoryId(category_id);
   }
 
-  @Put('/:id/update')
-  async update(@Body('id') id:number, @Body() product: ProductDto) {
+  @Put('/:id')
+  async update(
+    @Body('id', ParseIntPipe) id: number,
+    @Body() product: ProductDto,
+  ) {
     return this.productsService.update(id, product);
   }
- 
- 
-  @Delete('/:id/delete')
-  async remove(@Param('id') id: number): Promise<Product> {
+
+  @Delete('/:id')
+  async remove(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.remove(id);
   }
 
-  @Delete()
+  @Delete('/all')
   async removeAll() {
     return this.productsService.removeAll();
-  }
-  
-  @Get('/byname/:name')
-  async findByName(@Param('name') name: string) {
-    return this.productsService.findByName(name);
   }
 }

@@ -3,6 +3,7 @@ import { ProductDto } from '../dtos/products.dto';
 
 import { PrismaService } from '../prisma/prisma.service';
 import { Product } from '@prisma/client';
+import { UpdateProductDto } from 'src/dtos/update_product.dto';
 
 @Injectable()
 export class ProductsService {
@@ -44,7 +45,7 @@ export class ProductsService {
     return createdProduct;
   }
 
-  async findAll() {
+  async getAll() {
     return this.prisma.product.findMany({
       include: {
         category: true,
@@ -52,26 +53,33 @@ export class ProductsService {
     });
   }
 
-  async findById(id: number) {
+  async getById(id: number) {
     return this.prisma.product.findUnique({
-      where: { id: parseInt(`${id}`) },
+      where: { id: id },
     });
   }
 
-  async findByCategoryId(id: number) {
+  async getLimitedProductsAmount(limit?: number) {
+    const result = await this.prisma.product.findMany();
+    const limitedResult = result.slice(0, limit);
+
+    if (!limit) {
+      return result;
+    }
+
+    return limitedResult;
+  }
+
+  async getProductsByCategoryId(categoryId: number) {
     return this.prisma.product.findMany({
-      where: {
-        category_id: parseInt(`${id}`),
-      },
-      include: {
-        category: true,
-      },
+      where: { category_id: categoryId },
+      include: { category: true },
     });
   }
 
   async remove(id: number) {
     return this.prisma.product.delete({
-      where: { id: parseInt(`${id}`) },
+      where: { id: id },
     });
   }
 
@@ -79,34 +87,14 @@ export class ProductsService {
     return this.prisma.product.deleteMany({});
   }
 
-  async update(id: number, product: ProductDto) {
+  async update(id: number, product: UpdateProductDto) {
     const updatedProduct = await this.prisma.product.update({
       where: { id: parseInt(`${id}`) },
       data: {
-        name: product.name,
-        sku: product.sku,
-        category_id: product.category_id,
-        description: product.description,
-        large_description: product.large_description,
-        price: product.price,
-        discount_price: product.discount_price,
-        discount_percent: product.discount_percent,
-        is_new: product.is_new,
-        image_link: product.image_link,
-        other_image_link: product.other_image_link,
+        id,
       },
     });
 
     return updatedProduct;
-  }
-
-  async findByName(name: string) {
-    return this.prisma.product.findMany({
-      where: {
-        name: {
-          contains: name,
-        },
-      },
-    });
   }
 }

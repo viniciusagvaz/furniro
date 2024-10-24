@@ -6,11 +6,11 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class CategoriesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll() {
+  async getAll() {
     return await this.prisma.category.findMany({});
   }
 
-  async findById(id: number) {
+  async getById(id: number) {
     return await this.prisma.category.findUnique({
       where: { id },
     });
@@ -35,6 +35,14 @@ export class CategoriesService {
       },
     });
 
+    return updatedCategory;
+  }
+
+  async patch(id: number, data: CategoryDto) {
+    const updatedCategory = await this.prisma.category.update({
+      data: data,
+      where: { id: id },
+    });
     return updatedCategory;
   }
 

@@ -33,7 +33,8 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ product }) => {
                 <img src={star} alt="" />
                 <img src={star} alt="" />
               </span>
-              <span className={"pipe"}></span> <span>5 Customer Review</span>
+              <span className={"pipe"} />
+              <span>5 Customer Review</span>
             </S.Rating>
             <S.Description>{prod.description}</S.Description>
 

@@ -6,27 +6,36 @@ import { StoreInfo } from "../../components/InfoStore";
 
 import { useParams } from "react-router-dom";
 import { useGetProductsByCategory } from "../../data/getProductsByCategory";
-import { Products } from "../../interfaces/products.interface";
 import { SectionSort } from "../../components/SectionSort";
 import { useGetCategories } from "../../data/getCategoriesListApi";
 import { Button } from "../../components/Buttons";
+import { Loader } from "../../components/Loader";
+import { ErrorPage } from "../ErrorPage";
 
 interface Category {
   id: number;
   name: string;
   image_link: string;
-  products: Products[];
 }
 
 export function Category() {
   const { categoryId } = useParams();
-  const { data: categories } = useGetCategories();
+  const { categories } = useGetCategories();
+  const { products, loading, error } = useGetProductsByCategory(
+    Number(categoryId)
+  );
 
-  const products = useGetProductsByCategory(Number(categoryId));
   const category = categories?.find((cat: Category) => {
     return cat.id === Number(categoryId);
   });
 
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <ErrorPage statusCode={error.status} />;
+  }
   return (
     <S.CategoryContainer>
       <Hero image={category?.image_link} title={category?.name} />

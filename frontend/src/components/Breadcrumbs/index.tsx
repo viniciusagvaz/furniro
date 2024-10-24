@@ -19,7 +19,7 @@ export const BreadCrumbs = ({ product }: BreadCrumbsProps) => {
       </MenuItem>
       <img src={chevron} alt={"chevron"} />
 
-      <span id="Pipe"></span>
+      <span className="pipe"/>
 
       <S.Product>{product}</S.Product>
     </S.BreadCrumbs>
