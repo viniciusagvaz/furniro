@@ -23,18 +23,32 @@ export class ProductsController {
   }
 
   @Get()
-  async getAll() {
-    const result = await this.productsService.getAll();
-    return result;
+  async getAll(
+    @Query('limit') limit?: number,
+    @Query('offset') offset?: number,
+    @Query('order') order?: string,
+    @Query('order_by') order_by?: 'ASC' | 'DESC',
+    @Query('category_id') category_id?: number,
+  ) {
+    const products = await this.productsService.getAll(
+      limit,
+      offset,
+      order,
+      order_by,
+      category_id,
+    );
+    return products;
   }
 
-  @Get('/limit')
-  async getLimitedProductsAmount(@Query('a', ParseIntPipe) amount?: number) {
+  @Get('/list')
+  async getLimitedProductsAmount(
+    @Query('limit', ParseIntPipe) amount?: number,
+  ) {
     const result = await this.productsService.getLimitedProductsAmount(amount);
     return result;
   }
 
-  @Get('/chubidubi')
+  @Get()
   async getProductsByCategoryId(
     @Query('category_id', ParseIntPipe) category_id: number,
   ) {
