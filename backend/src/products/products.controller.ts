@@ -25,16 +25,15 @@ export class ProductsController {
   @Get()
   async getAll(
     @Query('limit') limit?: number,
-    @Query('offset') offset?: number,
-    @Query('order') order?: string,
-    @Query('order_by') order_by?: 'ASC' | 'DESC',
+    @Query('sort') sort?: 'ASC' | 'DESC',
+    @Query('page') page?: number,
     @Query('category_id') category_id?: number,
+
   ) {
     const products = await this.productsService.getAll(
       limit,
-      offset,
-      order,
-      order_by,
+      sort,
+      page,
       category_id,
     );
     return products;
@@ -78,7 +77,7 @@ export class ProductsController {
     return this.productsService.remove(id);
   }
 
-  @Delete('/all')
+  @Delete()
   async removeAll() {
     return this.productsService.removeAll();
   }

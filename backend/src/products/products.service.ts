@@ -46,9 +46,8 @@ export class ProductsService {
 
   async getAll(
     limit?: number,
-    offset?: number,
-    order?: string,
-    order_by?: 'ASC' | 'DESC',
+    sort?: 'ASC' | 'DESC',
+    page?: number,
     category_id?: number,
   ) {
     const result = await this.prisma.product.findMany({
@@ -57,24 +56,26 @@ export class ProductsService {
       },
     });
 
-    if (limit && offset) {
-      return result.slice(offset, limit);
+    if (sort) {
+      if (sort === 'DESC') {
+        return result.sort((a, b) => Number(b.price) - Number(a.price));
+      }
+      if (sort === 'ASC') {
+        return result.sort((a, b) => Number(a.price) - Number(b.price));
+      }
+
+      return result;
     }
 
-    if (order && order_by) {
-      return result.sort((a, b) => {
-        if (order_by === 'ASC') {
-          return a[order] - b[order];
-        } else {
-          return b[order] - a[order];
-        }
-      });
+    if (page) {
+      const offset = (page - 1) * limit;
+      return result.slice(offset, offset + limit);
     }
 
     if (category_id) {
-      return result.filter((product) => product.category_id === category_id);
+      return result.filter((product) => product.category_id === Number(category_id));
     }
-    
+
     if (limit) {
       return result.slice(0, limit);
     }
