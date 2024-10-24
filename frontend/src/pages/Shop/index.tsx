@@ -5,21 +5,22 @@ import { StoreInfo } from "../../components/InfoStore";
 import { SectionFilter } from "../../components/SectionFilter";
 import { Hero } from "../../components/HeroShop";
 
-import { useGetAllProducts } from "../../hooks/useGetAllProducts";
 
 import hero from "../../assets/img/hero-shop.jpeg";
 import { Button } from "../../components/Buttons";
 import { Loader } from "../../components/Loader";
 import { ErrorPage } from "../ErrorPage";
+import { useProducts } from "../../hooks/products";
+
 
 export function Shop() {
-  const { products, loading, error } = useGetAllProducts();
+  const { products, isLoading, isError} = useProducts();
 
-  if (loading) {
+  if (isLoading) {
     return <Loader />;
   }
 
-  if (error) {
+  if (isError) {
     return <ErrorPage  />;
   }
 

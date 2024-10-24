@@ -5,20 +5,20 @@ import { Hero } from "../../components/HeroHome";
 import { ProductsSection } from "../../components/SectionProduct";
 import { StoreInfo } from "../../components/InfoStore";
 import { useNavigateTo } from "../../hooks/useNavigateTo";
-import { useGetAllProducts } from "../../hooks/useGetAllProducts";
 import { Button } from "../../components/Buttons";
+import { useProducts } from "../../hooks/products";
 import { Loader } from "../../components/Loader";
 import { ErrorPage } from "../ErrorPage";
 
 export function Home() {
-  const { products, loading, error } = useGetAllProducts();
   const navigateTo = useNavigateTo("/shop");
+  const {products, isLoading, isError} = useProducts();
 
-  if (loading) {
+  if (isLoading) {
     return <Loader />;
   }
 
-  if (error) {
+  if (isError) {
     return <ErrorPage />;
   }
 

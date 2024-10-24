@@ -7,16 +7,15 @@ import { Products } from "../../interfaces/products.interface";
 import { BreadCrumbs } from "../../components/Breadcrumbs";
 
 import { useParams } from "react-router-dom";
-import { useGetAllProducts } from "../../hooks/useGetAllProducts";
-import { useGetProductsByCategory } from "../../hooks/useGetProductsByCategory";
 import { Button } from "../../components/Buttons";
 import { useState } from "react";
 import { useNavigateTo } from "../../hooks/useNavigateTo";
 import { Loader } from "../../components/Loader";
 import { ErrorPage } from "../ErrorPage";
+import { useProducts } from "../../hooks/products";
 
 export function ProductDetail() {
-  const { products, loading, error } = useGetAllProducts();
+  const { products, isLoading, isError } = useProducts();
   const { productName } = useParams();
 
   const product = products?.find((product) => product.name === productName);
@@ -39,9 +38,9 @@ export function ProductDetail() {
 
   const currentProduct: Products = product ?? defaultProduct;
 
-  const productsFromCategory = useGetProductsByCategory(
-    Number(currentProduct.category_id)
-  );
+  const productsFromCategory = products?.filter(
+    (product) => product.category_id === currentProduct.category_id
+  )
 
   const [limit, setLimit] = useState(4);
   const [showMoreClicked, setShowMoreClicked] = useState(false);
@@ -59,11 +58,11 @@ export function ProductDetail() {
     }
   };
 
-  if (loading) {
+  if (isLoading) {
     return <Loader />;
   }
 
-  if (error) {
+  if (isError) {
     return <ErrorPage  />;
   }
 
@@ -79,7 +78,7 @@ export function ProductDetail() {
         <ProductsSection
           limit={limit}
           title={"Related Products"}
-          products={productsFromCategory.products}
+          products={productsFromCategory}
         />
         <Button
           variant={"show"}

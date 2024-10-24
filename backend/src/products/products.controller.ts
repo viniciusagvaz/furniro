@@ -31,8 +31,8 @@ export class ProductsController {
     @Query('category_id') category_id?: number,
   ) {
     const products = await this.productsService.getAll(
-      limit || 4,
-      offset || 0,
+      limit,
+      offset,
       order,
       order_by,
       category_id,

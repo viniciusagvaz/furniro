@@ -5,12 +5,12 @@ import { Hero } from "../../components/HeroShop";
 import { StoreInfo } from "../../components/InfoStore";
 
 import { useParams } from "react-router-dom";
-import { useGetProductsByCategory } from "../../hooks/useGetProductsByCategory";
 import { SectionSort } from "../../components/SectionSort";
-import { useGetCategories } from "../../hooks/useGetCategories";
 import { Button } from "../../components/Buttons";
 import { Loader } from "../../components/Loader";
 import { ErrorPage } from "../ErrorPage";
+import { useProducts } from "../../hooks/products";
+import { useCategories } from "../../hooks/categories";
 
 interface Category {
   id: number;
@@ -20,22 +20,21 @@ interface Category {
 
 export function Category() {
   const { categoryId } = useParams();
-  const { categories } = useGetCategories();
-  const { products, loading, error } = useGetProductsByCategory(
-    Number(categoryId)
-  );
+  const { categories } = useCategories();
+  const { products, isLoading, isError } = useProducts();
 
   const category = categories?.find((cat: Category) => {
     return cat.id === Number(categoryId);
   });
 
-  if (loading) {
+  if (isLoading) {
     return <Loader />;
   }
 
-  if (error) {
-    return <ErrorPage  />;
+  if (isError) {
+    return <ErrorPage />;
   }
+
   return (
     <S.CategoryContainer>
       <Hero image={category?.image_link} title={category?.name} />
