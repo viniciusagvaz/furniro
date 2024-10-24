@@ -6,7 +6,6 @@ import share from "../../assets/icons/share.svg";
 import compare from "../../assets/icons/compare.svg";
 import heart from "../../assets/icons/heart-wt.svg";
 
-import { capitalize } from "../../utils/capitalize";
 import { useNavigateTo } from "../../hooks/useNavigateTo";
 
 interface CardProps {
@@ -37,7 +36,7 @@ export const ProductCard: React.FC<CardProps> = ({
       <S.Image src={image_link} alt={`Product ${name}`} />
 
       <S.ProductInformation>
-        <S.Title>{capitalize(name)}</S.Title>
+        <S.Title>{name}</S.Title>
         <S.Description>{description}</S.Description>
 
         {discount_price ? (

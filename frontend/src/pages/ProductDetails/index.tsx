@@ -64,7 +64,7 @@ export function ProductDetail() {
   }
 
   if (error) {
-    return <ErrorPage statusCode={error.status} />;
+    return <ErrorPage  />;
   }
 
   return (

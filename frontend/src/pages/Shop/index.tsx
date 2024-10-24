@@ -19,9 +19,8 @@ export function Shop() {
     return <Loader />;
   }
 
-  
   if (error) {
-    return <ErrorPage statusCode={error.status}/>;
+    return <ErrorPage  />;
   }
 
   return (

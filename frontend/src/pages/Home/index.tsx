@@ -19,7 +19,7 @@ export function Home() {
   }
 
   if (error) {
-    return <ErrorPage statusCode={error.status}/>;
+    return <ErrorPage />;
   }
 
   return (

@@ -3,6 +3,7 @@ import * as S from "./styles";
 import { SectionTitle } from "../TitleSection";
 import { CardCategory } from "../CardCategory";
 import { useGetCategories } from "../../hooks/useGetCategories";
+import { ErrorPage } from "../../pages/ErrorPage";
 
 interface CategoryProps {
   id: number;
@@ -11,7 +12,7 @@ interface CategoryProps {
 }
 
 export function CategoriesSection() {
-  const { categories, loading } = useGetCategories();
+  const { categories, loading, error } = useGetCategories();
 
   if (loading) {
     return (
@@ -19,6 +20,10 @@ export function CategoriesSection() {
         <SectionTitle children="Loading..." fontSize="2rem" />
       </S.CategoriesSection>
     );
+  }
+
+  if (error) {
+    return <ErrorPage />;
   }
 
   return (
