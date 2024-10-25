@@ -15,11 +15,17 @@ import { ErrorPage } from "../ErrorPage";
 import { useProducts } from "../../hooks/products";
 
 export function ProductDetail() {
-  const { products, isLoading, isError } = useProducts();
+  const [limit, setLimit] = useState(4);
+  const [showMoreClicked, setShowMoreClicked] = useState(false);
+
+  const { products, isLoading, isError } = useProducts(
+    {
+      limit: `${limit}`,
+    }
+  );
+
   const { productName } = useParams();
-
   const product = products?.find((product) => product.name === productName);
-
   const defaultProduct: Products = {
     id: 0,
     name: "",
@@ -35,15 +41,8 @@ export function ProductDetail() {
     other_image_link: [],
     category: [],
   };
-
   const currentProduct: Products = product ?? defaultProduct;
 
-  const productsFromCategory = products?.filter(
-    (product) => product.category_id === currentProduct.category_id
-  )
-
-  const [limit, setLimit] = useState(4);
-  const [showMoreClicked, setShowMoreClicked] = useState(false);
 
   const navigateToCategory = useNavigateTo(
     `/category/${currentProduct.category_id}`
@@ -57,6 +56,7 @@ export function ProductDetail() {
       navigateToCategory();
     }
   };
+
 
   if (isLoading) {
     return <Loader />;
@@ -76,9 +76,8 @@ export function ProductDetail() {
       />
       <S.RelatedProductsContainer>
         <ProductsSection
-          limit={limit}
           title={"Related Products"}
-          products={productsFromCategory}
+          products={products}
         />
         <Button
           variant={"show"}

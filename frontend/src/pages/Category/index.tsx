@@ -11,6 +11,8 @@ import { Loader } from "../../components/Loader";
 import { ErrorPage } from "../ErrorPage";
 import { useProducts } from "../../hooks/products";
 import { useCategories } from "../../hooks/categories";
+import { useRecoilValue } from "recoil";
+import { limitState } from "../../states/limitState";
 
 interface Category {
   id: number;
@@ -19,9 +21,15 @@ interface Category {
 }
 
 export function Category() {
+  const { limit } = useRecoilValue(limitState);
   const { categoryId } = useParams();
   const { categories } = useCategories();
-  const { products, isLoading, isError } = useProducts();
+  const { data, isLoading, isError } = useProducts({
+    limit: `${limit}`,
+    page: "1",
+    sort: "asc",
+    sort_by: "price",
+  });
 
   const category = categories?.find((cat: Category) => {
     return cat.id === Number(categoryId);
@@ -40,7 +48,7 @@ export function Category() {
       <Hero image={category?.image_link} title={category?.name} />
       <SectionSort />
       <S.CategoryProductsContainer>
-        <ProductsSection limit={16} products={products} />
+        <ProductsSection products={products} />
         <S.ProductsNavigationContainer>
           <Button variant={"navigation"} children={"Next"} />
           <Button variant={"navigation"} children={"Next"} />

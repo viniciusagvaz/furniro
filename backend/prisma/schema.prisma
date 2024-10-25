@@ -25,7 +25,7 @@ model Product {
   large_description String    @db.VarChar(500)
   price             Decimal   @db.Decimal
   discount_price    Decimal?  @db.Decimal
-  discount_percent  Decimal?  @db.Decimal
+  discount_percent  Int  
   is_new            Boolean?
   image_link        String?   @db.VarChar(250)
   other_image_link  Json

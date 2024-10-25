@@ -1,16 +1,31 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 
-export function useProducts(){
+
+export function useProducts(
+  queries: { [key: string]: string | undefined } = {},
+  options?: any
+) {
+  const baseUrl = "http://localhost:3000/products";
+  const queryString = Object.keys(queries)
+    .filter((key) => queries[key] !== undefined)
+    .map((key) => `${key}=${queries[key]}`)
+    .join("&");
+
+  const fullURL = `${baseUrl}?${queryString}`;
+
   const {
-    data: products,
+    data,
     isLoading,
     isError,
-  } = useQuery("products", () =>
-    axios
-      .get("http://localhost:3000/products")
-      .then((response) => response.data)
+  } = useQuery(
+    ["products", queries.limit, queries.page, queries.sort_by, queries.sort],
+    async () => {
+      const response = await axios.get(fullURL);
+      return response.data;
+    },
+    options
   );
-  console.log(products.length)
-  return { products, isLoading, isError };
-};
+
+  return { data, isLoading, isError };
+}

@@ -12,7 +12,15 @@ import { ErrorPage } from "../ErrorPage";
 
 export function Home() {
   const navigateTo = useNavigateTo("/shop");
-  const {products, isLoading, isError} = useProducts();
+
+  const { data , isLoading, isError } = useProducts(
+    {
+      limit: "4",
+      page: "1",
+    },
+  );
+
+  const products = data?.products;
 
   if (isLoading) {
     return <Loader />;
@@ -28,7 +36,6 @@ export function Home() {
       <CategoriesSection />
       <S.OurProductsContainer>
         <ProductsSection
-          limit={4}
           title={"Our Products"}
           path="/shop"
           products={products}

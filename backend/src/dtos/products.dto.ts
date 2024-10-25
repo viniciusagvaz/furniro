@@ -2,6 +2,7 @@ import {
   IsArray,
   IsBoolean,
   IsNumber,
+  IsNumberString,
   IsOptional,
   IsPositive,
   IsString,
@@ -23,21 +24,15 @@ export class ProductDto {
   @IsString()
   large_description: string;
 
-  @IsPositive()
   @IsNumber()
   price: number
 
-  @IsOptional()
-  @IsPositive()
   @IsNumber()
   discount_price: number;
 
-  @IsOptional()
-  @IsPositive()
   @IsNumber()
   discount_percent: number;
 
-  @IsOptional()
   @IsBoolean()
   is_new: boolean;
 
@@ -48,7 +43,5 @@ export class ProductDto {
   @IsString({ each: true })
   other_image_link: string[];
 
-  @IsArray()
-  category: [];
 }
 
