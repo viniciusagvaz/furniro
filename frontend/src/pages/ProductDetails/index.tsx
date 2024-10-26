@@ -3,9 +3,8 @@ import * as S from "./styles";
 import { ProductsSection } from "../../components/SectionProduct/index";
 import { ProductGrid } from "../../components/GridProduct";
 import { LargeDescription } from "../../components/LargeDescription";
-import { Products } from "../../interfaces/products.interface";
 import { BreadCrumbs } from "../../components/Breadcrumbs";
-
+ 
 import { useParams } from "react-router-dom";
 import { Button } from "../../components/Buttons";
 import { useState } from "react";
@@ -18,30 +17,20 @@ export function ProductDetail() {
   const [limit, setLimit] = useState(4);
   const [showMoreClicked, setShowMoreClicked] = useState(false);
 
-  const { products, isLoading, isError } = useProducts(
-    {
+  const { data, isLoading, isError } = useProducts(
+    {  
       limit: `${limit}`,
+      page: "1",
+      sort: "asc",
+      sort_by: "price",
     }
   );
 
+  const products = data?.products;
+
   const { productName } = useParams();
-  const product = products?.find((product) => product.name === productName);
-  const defaultProduct: Products = {
-    id: 0,
-    name: "",
-    sku: "",
-    category_id: 0,
-    description: "",
-    large_description: "",
-    price: 0,
-    discount_price: 0,
-    discount_percent: 0,
-    is_new: false,
-    image_link: "",
-    other_image_link: [],
-    category: [],
-  };
-  const currentProduct: Products = product ?? defaultProduct;
+  const currentProduct = products?.find((product) => product.name === productName);
+
 
 
   const navigateToCategory = useNavigateTo(

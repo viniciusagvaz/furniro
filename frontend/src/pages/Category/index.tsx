@@ -13,6 +13,7 @@ import { useProducts } from "../../hooks/products";
 import { useCategories } from "../../hooks/categories";
 import { useRecoilValue } from "recoil";
 import { limitState } from "../../states/limitState";
+import { Products } from "../../interfaces/products.interface";
 
 interface Category {
   id: number;
@@ -21,16 +22,19 @@ interface Category {
 }
 
 export function Category() {
-  const { limit } = useRecoilValue(limitState);
   const { categoryId } = useParams();
   const { categories } = useCategories();
+  const limit  = useRecoilValue(limitState);
   const { data, isLoading, isError } = useProducts({
     limit: `${limit}`,
     page: "1",
     sort: "asc",
     sort_by: "price",
   });
-
+  
+  const products = data?.products.filter(
+    (product: Products) => product.category_id === Number(categoryId));
+  
   const category = categories?.find((cat: Category) => {
     return cat.id === Number(categoryId);
   });

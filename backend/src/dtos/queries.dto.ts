@@ -19,11 +19,11 @@ export class QueryProductsDto {
 
   @IsOptional()
   @IsString()
-  sort?: 'asc' | 'desc';
+  sort?: string;
 
   @IsOptional()
   @IsString()
-  sort_by?: 'price';
+  sort_by?: string;
 
   @IsOptional()
   @IsNumberString()

@@ -26,7 +26,7 @@ export function MenuSort() {
 
       <label htmlFor="sortBy">Sort by</label>
       <select name="sortBy" onChange={handleSortByPrice} value={sortByPrice}>
-        <option value="price">Default</option>
+        <option value="default">Default</option>
         <option value="asc">$ lowest-highest</option>
         <option value="desc">$ highest-lowest</option>
       </select>

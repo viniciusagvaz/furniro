@@ -13,12 +13,10 @@ import { ErrorPage } from "../ErrorPage";
 export function Home() {
   const navigateTo = useNavigateTo("/shop");
 
-  const { data , isLoading, isError } = useProducts(
-    {
-      limit: "4",
-      page: "1",
-    },
-  );
+  const { data, isLoading, isError } = useProducts({
+    limit: "4",
+    page: "1",
+  });
 
   const products = data?.products;
 

@@ -12,19 +12,18 @@ import { ErrorPage } from "../ErrorPage";
 import { useProducts } from "../../hooks/products";
 import { useRecoilValue } from "recoil";
 import { limitState } from "../../states/limitState";
-import { sortByPriceState } from "../../states/sortByPrice";
+// import { sortByPriceState } from "../../states/sortByPrice";
 
 export function Shop() {
-  const limit = useRecoilValue(limitState);
-  const sort = useRecoilValue(sortByPriceState);
-  console.log(sort);
+  // const sort = useRecoilValue(sortByPriceState);
 
-  const { data, isLoading, isError } = useProducts({
-    limit: `${ limit }`,
+const { data, isLoading, isError } = useProducts({
+    limit: `${ useRecoilValue(limitState) }`,
     page: "1",
-    // sort: ` ${ sort }`,
-    sort_by: "price",
+    sort: `asc`,
+    sort_by: `updated_date`,
   });
+
 
   const products = data?.products;
 
