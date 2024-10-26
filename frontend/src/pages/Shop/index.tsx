@@ -13,17 +13,15 @@ import { useProducts } from "../../hooks/products";
 import { useRecoilValue } from "recoil";
 import { limitState } from "../../states/limitState";
 // import { sortByPriceState } from "../../states/sortByPrice";
+// const sort = useRecoilValue(sortByPriceState);
 
 export function Shop() {
-  // const sort = useRecoilValue(sortByPriceState);
-
 const { data, isLoading, isError } = useProducts({
     limit: `${ useRecoilValue(limitState) }`,
     page: "1",
     sort: `asc`,
     sort_by: `updated_date`,
   });
-
 
   const products = data?.products;
 

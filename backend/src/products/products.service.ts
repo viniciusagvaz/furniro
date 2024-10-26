@@ -25,7 +25,7 @@ export class ProductsService {
     return { products, pages, limit, totalProducts };
   }
 
-  async getById(id: number) {
+  async getidyId(id: number) {
     return this.prisma.product.findUnique({
       where: { id },
       include: { category: true },
@@ -40,13 +40,20 @@ export class ProductsService {
   }
 
   async getSpecificProduct(name: string, limit: number, page: number) {
+
+    const { category_id } = await this.prisma.product.findFirst({
+      where: { name },
+      select: { category_id: true },
+    });
+
     const product = await this.prisma.product.findFirst({
-      where: { name: name },
+      where: { name, category_id },
+       
       include: { category: true },
     });
 
     const relatedProducts = await this.prisma.product.findMany({
-      where: { category_id: product.category_id, name: { not: name } },
+      where: { category_id, name: { not: name } },
       take: limit,
       skip: (page - 1) * limit,
     });

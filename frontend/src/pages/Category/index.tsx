@@ -24,17 +24,19 @@ interface Category {
 export function Category() {
   const { categoryId } = useParams();
   const { categories } = useCategories();
-  const limit  = useRecoilValue(limitState);
+  const limit = useRecoilValue(limitState);
+
   const { data, isLoading, isError } = useProducts({
     limit: `${limit}`,
     page: "1",
     sort: "asc",
     sort_by: "price",
   });
-  
+
   const products = data?.products.filter(
-    (product: Products) => product.category_id === Number(categoryId));
-  
+    (product: Products) => product.category_id === Number(categoryId)
+  );
+
   const category = categories?.find((cat: Category) => {
     return cat.id === Number(categoryId);
   });
