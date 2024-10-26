@@ -1,7 +1,7 @@
 import * as S from "./styles";
 
-import { ProductsSection } from "../../components/Products/SectionProduct";
-import { Hero } from "../../components/Layout/HeroShop";
+import { ProductsSection } from "../../components/products/SectionProduct";
+import { Hero } from "../../components/layout/HeroShop";
 import { StoreInfo } from "../../components/ui/InfoStore";
 
 import { useParams } from "react-router-dom";
@@ -25,7 +25,7 @@ export function Category() {
   const { categoryId } = useParams();
   const { categories } = useCategories();
   const limit = useRecoilValue(limitState);
-
+  
   const { data, isLoading, isError } = useProducts({
     limit: `${limit}`,
     page: "1",

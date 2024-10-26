@@ -52,7 +52,7 @@ export const ProductCard: React.FC<CardProps> = ({
       </S.ProductInformation>
 
       {is_new && <S.NewLabel>New</S.NewLabel>}
-      {discount_percent && (
+      {discount_percent != 0 && (
         <S.DiscountLabel>{`-${discount_percent}%`}</S.DiscountLabel>
       )}
 

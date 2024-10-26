@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
-import { DefaultLayout } from "./components/Layout/index";
+import { DefaultLayout } from "./components/layout/index";
 import { UnderConstruction } from "./pages/UnderConst";
 import { Shop } from "./pages/Shop";
 import { ProductDetail } from "./pages/ProductDetails";

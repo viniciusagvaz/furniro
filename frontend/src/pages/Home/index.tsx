@@ -1,8 +1,8 @@
 import * as S from "./styles";
 
-import { CategoriesSection } from "../../components/Categories/SectionCategory";
-import { Hero } from "../../components/Layout/HeroHome";
-import { ProductsSection } from "../../components/Products/SectionProduct";
+import { CategoriesSection } from "../../components/categories/SectionCategory";
+import { Hero } from "../../components/layout/HeroHome";
+import { ProductsSection } from "../../components/products/SectionProduct";
 import { StoreInfo } from "../../components/ui/InfoStore";
 import { useNavigateTo } from "../../hooks/useNavigateTo";
 import { Button } from "../../components/ui/Buttons";

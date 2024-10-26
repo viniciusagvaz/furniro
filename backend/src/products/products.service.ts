@@ -24,7 +24,7 @@ export class ProductsService {
 
     return { products, pages, limit, totalProducts };
   }
-
+ 
   async getidyId(id: number) {
     return this.prisma.product.findUnique({
       where: { id },
@@ -53,7 +53,7 @@ export class ProductsService {
     });
 
     const relatedProducts = await this.prisma.product.findMany({
-      where: { category_id, name: { not: name } },
+      where: { category_id, id: { not: product.id } },
       take: limit,
       skip: (page - 1) * limit,
     });
@@ -75,6 +75,10 @@ export class ProductsService {
     });
   }
 
+  async removeAll() {
+    return this.prisma.product.deleteMany({});
+  }
+  
   async update(id: number, products: UpdateProductDto) {
     return this.prisma.product.update({
       where: { id },

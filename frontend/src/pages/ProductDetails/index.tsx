@@ -1,9 +1,9 @@
 import * as S from "./styles";
 
-import { ProductsSection } from "../../components/Products/SectionProduct";
-import { ProductGrid } from "../../components/ProductDetail/GridProduct";
-import { LargeDescription } from "../../components/ProductDetail/LargeDescription";
-import { BreadCrumbs } from "../../components/ProductDetail/Breadcrumbs";
+import { ProductsSection } from "../../components/products/SectionProduct";
+import { ProductGrid } from "../../components/productdetail/GridProduct";
+import { LargeDescription } from "../../components/productdetail/LargeDescription";
+import { BreadCrumbs } from "../../components/productdetail/Breadcrumbs";
 
 import { useParams } from "react-router-dom";
 import { Button } from "../../components/ui/Buttons";
@@ -23,9 +23,9 @@ export function ProductDetail() {
     limit: `${limit}`,
     page: "1",
   });
-
-  const currentProduct = data?.product;
   const products = data?.relatedProducts;
+  const currentProduct = data?.product;
+  console.log(data)
   const category_id = currentProduct?.category_id;
 
   const navigateToCategory = useNavigateTo(`/category/${category_id}`);
