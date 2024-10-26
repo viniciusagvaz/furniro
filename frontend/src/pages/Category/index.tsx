@@ -1,13 +1,13 @@
 import * as S from "./styles";
 
-import { ProductsSection } from "../../components/SectionProduct";
-import { Hero } from "../../components/HeroShop";
-import { StoreInfo } from "../../components/InfoStore";
+import { ProductsSection } from "../../components/Products/SectionProduct";
+import { Hero } from "../../components/Layout/HeroShop";
+import { StoreInfo } from "../../components/ui/InfoStore";
 
 import { useParams } from "react-router-dom";
-import { SectionSort } from "../../components/SectionSort";
-import { Button } from "../../components/Buttons";
-import { Loader } from "../../components/Loader";
+import { SectionSort } from "../../components/ui/SectionSort";
+import { Button } from "../../components/ui/Buttons";
+import { Loader } from "../../components/ui/Loader";
 import { ErrorPage } from "../ErrorPage";
 import { useProducts } from "../../hooks/products";
 import { useCategories } from "../../hooks/categories";

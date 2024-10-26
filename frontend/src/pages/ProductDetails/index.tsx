@@ -1,14 +1,14 @@
 import * as S from "./styles";
 
-import { ProductsSection } from "../../components/SectionProduct/index";
-import { ProductGrid } from "../../components/GridProduct";
-import { LargeDescription } from "../../components/LargeDescription";
-import { BreadCrumbs } from "../../components/Breadcrumbs";
+import { ProductsSection } from "../../components/Products/SectionProduct";
+import { ProductGrid } from "../../components/ProductDetail/GridProduct";
+import { LargeDescription } from "../../components/ProductDetail/LargeDescription";
+import { BreadCrumbs } from "../../components/ProductDetail/Breadcrumbs";
 
 import { useParams } from "react-router-dom";
-import { Button } from "../../components/Buttons";
+import { Button } from "../../components/ui/Buttons";
 import { useState } from "react";
-import { Loader } from "../../components/Loader";
+import { Loader } from "../../components/ui/Loader";
 import { ErrorPage } from "../ErrorPage";
 import { useProductDetails } from "../../hooks/productDetails";
 import { useNavigateTo } from "../../hooks/useNavigateTo";
@@ -17,7 +17,7 @@ export function ProductDetail() {
   const [limit, setLimit] = useState(4);
   const [showMoreClicked, setShowMoreClicked] = useState(false);
   const { productName } = useParams();
-  
+
   const { data, isLoading, isError } = useProductDetails({
     name: `${productName}`,
     limit: `${limit}`,
@@ -28,9 +28,7 @@ export function ProductDetail() {
   const products = data?.relatedProducts;
   const category_id = currentProduct?.category_id;
 
-  const navigateToCategory = useNavigateTo(
-    `/category/${category_id}`
-  );
+  const navigateToCategory = useNavigateTo(`/category/${category_id}`);
 
   const handleShowMore = () => {
     if (!showMoreClicked) {

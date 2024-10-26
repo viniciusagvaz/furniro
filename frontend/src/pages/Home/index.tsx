@@ -1,13 +1,13 @@
 import * as S from "./styles";
 
-import { CategoriesSection } from "../../components/SectionCategory";
-import { Hero } from "../../components/HeroHome";
-import { ProductsSection } from "../../components/SectionProduct";
-import { StoreInfo } from "../../components/InfoStore";
+import { CategoriesSection } from "../../components/Categories/SectionCategory";
+import { Hero } from "../../components/Layout/HeroHome";
+import { ProductsSection } from "../../components/Products/SectionProduct";
+import { StoreInfo } from "../../components/ui/InfoStore";
 import { useNavigateTo } from "../../hooks/useNavigateTo";
-import { Button } from "../../components/Buttons";
+import { Button } from "../../components/ui/Buttons";
 import { useProducts } from "../../hooks/products";
-import { Loader } from "../../components/Loader";
+import { Loader } from "../../components/ui/Loader";
 import { ErrorPage } from "../ErrorPage";
 
 export function Home() {

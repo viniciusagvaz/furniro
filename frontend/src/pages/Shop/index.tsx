@@ -1,13 +1,13 @@
 import * as S from "./styles";
 
-import { ProductsSection } from "../../components/SectionProduct";
-import { StoreInfo } from "../../components/InfoStore";
-import { SectionFilter } from "../../components/SectionFilter";
-import { Hero } from "../../components/HeroShop";
+import { ProductsSection } from "../../components/Products/SectionProduct";
+import { StoreInfo } from "../../components/ui/InfoStore";
+import { SectionFilter } from "../../components/ui/SectionFilter";
+import { Hero } from "../../components/Layout/HeroShop";
 
 import hero from "../../assets/img/hero-shop.jpeg";
-import { Button } from "../../components/Buttons";
-import { Loader } from "../../components/Loader";
+import { Button } from "../../components/ui/Buttons";
+import { Loader } from "../../components/ui/Loader";
 import { ErrorPage } from "../ErrorPage";
 import { useProducts } from "../../hooks/products";
 import { useRecoilValue } from "recoil";
