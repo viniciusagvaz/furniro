@@ -19,6 +19,13 @@ export class CategoriesService {
     });
   }
 
+  async getCategoryImageAndNameById(category_id: number) {
+    return await this.prisma.category.findUnique({
+      where: { id: category_id },
+      select: { id: true, image_link: true, name: true },
+    });
+  }
+
   async create(category: CategoryDto) {
     const createdCategory = await this.prisma.category.create({
       data: {

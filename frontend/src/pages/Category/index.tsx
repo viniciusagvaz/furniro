@@ -34,7 +34,7 @@ export function Category() {
     {
       categories: `${categoryId}`,
     },
-    `categories/${categoryId}`
+    `categories/image/${categoryId}`
   );
   const currentCategory = category;
 

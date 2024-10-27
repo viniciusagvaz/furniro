@@ -27,6 +27,13 @@ export class CategoriesController {
     return this.categoriesService.getAll();
   }
 
+  @Get('image/:category_id')
+  async getCategoryImageAndNameById(
+    @Param('category_id', ParseIntPipe) category_id: number,
+  ) {
+    return this.categoriesService.getCategoryImageAndNameById(category_id);
+  }
+
   @Get(':id')
   async getById(@Param('id', ParseIntPipe) id: number) {
     return this.categoriesService.getById(id);

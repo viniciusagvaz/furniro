@@ -40,6 +40,19 @@ export class ProductsController {
     );
   }
 
+  @Get('/:name')
+  async getSpecificProductAndItsRelateds(
+    @Param('name') name: string,
+    @Query() query: QueryProductsDto,
+  ) {
+    const { limit, page } = query;
+    return await this.productsService.getSpecificProductAndItsRelateds(
+      name,
+      Number(limit),
+      Number(page),
+    );
+  }
+
   @Get('/:category_id')
   async getProductById(
     @Param('category_id', ParseIntPipe) category_id: number,
@@ -50,6 +63,11 @@ export class ProductsController {
   @Post()
   async create(@Body() body: ProductDto) {
     return await this.productsService.create(body);
+  }
+
+  @Post('createMany')
+  async createMany(@Body() body: ProductDto[]) {
+    return await this.productsService.createMany(body);
   }
 
   @Delete('/:id')

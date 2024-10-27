@@ -19,7 +19,7 @@ export function Home() {
   });
 
   const products = data?.products;
-
+  console.log(products);
   if (isLoading) {
     return <Loader />;
   }

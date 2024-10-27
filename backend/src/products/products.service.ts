@@ -15,7 +15,17 @@ export class ProductsService {
         skip,
         take: limit,
         orderBy: { updated_date: 'desc' },
-        include: { category: { select: { name: true, updated_date: true } } },
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          price: true,
+          discount_price: true,
+          discount_percent: true,
+          is_new: true,
+          image_link: true,
+          updated_date: true,
+        },
       }),
       this.prisma.product.count(),
     ]);
@@ -39,11 +49,17 @@ export class ProductsService {
         where: { category_id },
         skip,
         take: limit,
-        orderBy: [
-          {
-            updated_date: 'desc',
-          }
-        ],
+        orderBy: { updated_date: 'asc' },
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          price: true,
+          discount_price: true,
+          discount_percent: true,
+          image_link: true,
+          updated_date: true,
+        },
       }),
 
       this.prisma.product.count({
@@ -57,15 +73,18 @@ export class ProductsService {
 
   async getProductById(category_id: number) {
     return this.prisma.product.findMany({
-      where: { category_id }, //seleciona por id
+      where: { category_id },
       include: {
-        //inclui as categorias
-        category: { select: { id: true, name: true, updated_date: true } }, // seleciona o id e o name
+        category: { select: { id: true, name: true, updated_date: true } },
       },
     });
   }
 
-  async getSpecificProduct(name: string, limit: number, page: number) {
+  async getSpecificProductAndItsRelateds(
+    name: string,
+    limit: number,
+    page: number,
+  ) {
     const { category_id } = await this.prisma.product.findFirst({
       where: { name },
       select: { category_id: true },
@@ -74,13 +93,23 @@ export class ProductsService {
     const product = await this.prisma.product.findFirst({
       where: { name, category_id },
 
-      include: { category: true },
+      include: { category: { select: { name: true, updated_date: true } } },
     });
 
     const relatedProducts = await this.prisma.product.findMany({
       where: { category_id, id: { not: product.id } },
       take: limit,
       skip: (page - 1) * limit,
+      select: {
+        id: true,
+        name: true,
+        image_link: true,
+        description: true,
+        price: true,
+        discount_price: true,
+        discount_percent: true,
+        is_new: true,
+      },
     });
 
     return { product, relatedProducts };
@@ -92,6 +121,14 @@ export class ProductsService {
     });
 
     return createdProduct;
+  }
+
+  async createMany(products: ProductDto[]) {
+    const createdProducts = await this.prisma.product.createMany({
+      data: products,
+    });
+
+    return createdProducts;
   }
 
   async remove(id: number) {

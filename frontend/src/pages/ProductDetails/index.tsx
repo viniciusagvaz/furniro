@@ -10,22 +10,21 @@ import { Button } from "../../components/ui/Buttons";
 import { useState } from "react";
 import { Loader } from "../../components/ui/Loader";
 import { ErrorPage } from "../ErrorPage";
-import { useProductDetails } from "../../hooks/productDetails";
 import { useNavigateTo } from "../../hooks/useNavigateTo";
+import { useFetch } from "../../hooks/products";
 
 export function ProductDetail() {
   const [limit, setLimit] = useState(4);
   const [showMoreClicked, setShowMoreClicked] = useState(false);
   const { productName } = useParams();
 
-  const { data, isLoading, isError } = useProductDetails({
-    name: `${productName}`,
+  const { data, isLoading, isError } = useFetch({
     limit: `${limit}`,
     page: "1",
-  });
+  }, `products/${productName}`);
+
   const products = data?.relatedProducts;
   const currentProduct = data?.product;
-  console.log(data)
   const category_id = currentProduct?.category_id;
 
   const navigateToCategory = useNavigateTo(`/category/${category_id}`);
