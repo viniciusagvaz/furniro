@@ -13,7 +13,7 @@ interface CategoryProps {
 }
 
 export function CategoriesSection() {
-  const { categories, isLoading, isError } = useCategories();
+  const { data: categories, isLoading, isError } = useCategories({});
 
   if (isLoading) {
     return <Loader />;

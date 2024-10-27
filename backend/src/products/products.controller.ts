@@ -27,24 +27,24 @@ export class ProductsController {
     );
   }
 
-  @Get(':name')
-  async getSpecificProducts(
-    @Param('name') name: string,
-    @Query() param: QueryProductsDto,
+  @Get('/category/:category_id')
+  async getAllProductsByCategory(
+    @Param('category_id', ParseIntPipe) category_id: number,
+    @Query() query: QueryProductsDto,
   ) {
-    const { limit, page } = param;
-    return await this.productsService.getSpecificProduct(
-      name,
+    const { limit, page } = query;
+    return await this.productsService.getAllProductsByCategory(
       Number(limit),
       Number(page),
+      category_id,
     );
   }
 
-  @Get('/category/:category_id')
-  async getByCategoryId(
+  @Get('/:category_id')
+  async getProductById(
     @Param('category_id', ParseIntPipe) category_id: number,
   ) {
-    return await this.productsService.getByCategoryId(category_id);
+    return await this.productsService.getProductById(category_id);
   }
 
   @Post()

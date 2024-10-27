@@ -8,7 +8,7 @@ import { Hero } from "../../components/layout/HeroShop";
 import hero from "../../assets/img/hero-shop.jpeg";
 import { Loader } from "../../components/ui/Loader";
 import { ErrorPage } from "../ErrorPage";
-import { useProducts } from "../../hooks/products";
+import { useFetch } from "../../hooks/products";
 
 import { limitState } from "../../states/limitState";
 import { useRecoilValue } from "recoil";
@@ -19,7 +19,7 @@ export function Shop() {
   const limit = useRecoilValue(limitState);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, isLoading, isError } = useProducts({
+  const { data, isLoading, isError } = useFetch({
     limit: `${limit}`,
     page: `${currentPage}`,
     sort: `asc`,

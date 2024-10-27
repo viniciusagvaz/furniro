@@ -4,7 +4,7 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 import { CategoriesController } from './categories.controller';
 import { CategoryDto } from 'src/dtos/categories.dto';
 
-
+ 
 @Module({
   imports: [PrismaModule],
   controllers: [CategoriesController],

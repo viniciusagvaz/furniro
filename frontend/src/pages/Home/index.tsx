@@ -6,14 +6,14 @@ import { ProductsSection } from "../../components/products/SectionProduct";
 import { StoreInfo } from "../../components/ui/InfoStore";
 import { useNavigateTo } from "../../hooks/useNavigateTo";
 import { Button } from "../../components/ui/Buttons";
-import { useProducts } from "../../hooks/products";
+import { useFetch } from "../../hooks/products";
 import { Loader } from "../../components/ui/Loader";
 import { ErrorPage } from "../ErrorPage";
 
 export function Home() {
   const navigateTo = useNavigateTo("/shop");
 
-  const { data, isLoading, isError } = useProducts({
+  const { data, isLoading, isError } = useFetch({
     limit: "4",
     page: "1",
   });

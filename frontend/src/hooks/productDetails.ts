@@ -7,7 +7,9 @@ export function useProductDetails(queries) {
   const baseUrl = `${api.defaults.baseURL}/products/${name}`;
 
   const { data, isLoading, isError } = useQuery(["products", queries], () =>
-    axios.get(baseUrl, { params: queryParams }).then((response) => response.data)
+    axios
+      .get(baseUrl, { params: queryParams })
+      .then((response) => response.data)
   );
   return { data, isLoading, isError };
 }
