@@ -11,7 +11,7 @@ import { useState } from "react";
 import { Loader } from "../../components/ui/Loader";
 import { ErrorPage } from "../ErrorPage";
 import { useNavigateTo } from "../../hooks/useNavigateTo";
-import { useFetch } from "../../hooks/products";
+import { useFetch } from "../../hooks/useFetch";
 
 export function ProductDetail() {
   const [limit, setLimit] = useState(4);

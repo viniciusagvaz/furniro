@@ -32,4 +32,9 @@ export class QueryProductsDto {
   @IsOptional()
   @IsNumberString()
   limit?: string | 4;
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  filters?: string[];
 }

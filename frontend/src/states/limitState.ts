@@ -4,8 +4,7 @@ import { atom, useResetRecoilState } from "recoil";
 
 export const limitState = atom({
   key: "LimitState",
-  default: 16,  
-
+  default: 16,
 });
 
 export function ResetLimitState() {

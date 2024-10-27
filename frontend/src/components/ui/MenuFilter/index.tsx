@@ -4,9 +4,12 @@ import filter from "../../../assets/icons/filter.svg";
 import display from "../../../assets/icons/display.svg";
 import listing from "../../../assets/icons/listing.svg";
 import { useState } from "react";
+import { limitState } from "../../../states/limitState";
+import { useRecoilValue } from "recoil";
 
-export function MenuFilter() {
+export function MenuFilter({totalProducts}) {
   const [showFilterModal, setFilterModal] = useState(false);
+  const limit = useRecoilValue(limitState);
 
   const handleFilterModal = () => {
     setFilterModal(!showFilterModal);
@@ -36,12 +39,12 @@ export function MenuFilter() {
       )}
 
       <S.FilterLabel htmlFor={"modal"}>Filter</S.FilterLabel>
-      <img src={display} alt="" style={{ width: "22px", height: "22px" }} />
-      <img src={listing} alt="" style={{ width: "22px", height: "22px" }} />
+      <img src={display} alt="display icon"/>
+      <img src={listing} alt="listing icon"/>
 
       <span className={"pipe"} />
 
-      <S.ItemsShown>Showing 1-16 of 32 results</S.ItemsShown>
+      <S.ItemsShown>Showing 1-{limit} of {totalProducts} results</S.ItemsShown>
     </S.FilterMenu>
   );
 }

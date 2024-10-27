@@ -22,11 +22,13 @@ export function MenuSort() {
       <select name="limit" onChange={handleLimit} value={limit}>
         <option value={16}>16</option>
         <option value={32}>32</option>
+        <option value={48}>48</option>
+        <option value={64}>64</option>
       </select>
 
       <label htmlFor="sortBy">Sort by</label>
       <select name="sortBy" onChange={handleSortByPrice} value={sortByPrice}>
-        <option value="default">Default</option>
+        <option value="asc">Default</option>
         <option value="asc">$ lowest-highest</option>
         <option value="desc">$ highest-lowest</option>
       </select>

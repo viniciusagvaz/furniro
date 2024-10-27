@@ -9,7 +9,7 @@ import { Loader } from "../../components/ui/Loader";
 
 import { ErrorPage } from "../ErrorPage";
 import { limitState } from "../../states/limitState";
-import { useFetch } from "../../hooks/products";
+import { useFetch } from "../../hooks/useFetch";
 import { useRecoilValue } from "recoil";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
@@ -19,7 +19,6 @@ interface Category {
   name: string;
   image_link: string;
 }
-
 
 export function Category() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,12 +41,24 @@ export function Category() {
     {
       limit: `${limit}`,
       page: `${currentPage}`,
+      sort: "asc",
+      sort_by: "price",
+      categories: `${categoryId}`,
     },
     `products/category/${categoryId}`
   );
+
   const categoryProducts = data?.products;
+
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
+  };
+
+  const handleResultsMoreThanLimit = () => {
+    if (data?.totalProducts > limit) {
+      return limit;
+    }
+    return data?.totalProducts;
   };
 
   if (isLoading || categoryLoading) {
@@ -61,14 +72,17 @@ export function Category() {
   return (
     <S.CategoryContainer>
       <Hero image={currentCategory?.image_link} title={currentCategory?.name} />
-      <SectionSort />
+
+      <SectionSort
+        limit={handleResultsMoreThanLimit()}
+        totalProducts={data?.totalProducts}
+      />
       <S.CategoryProductsContainer>
         <ProductsSection products={categoryProducts} />
         <S.ProductsNavigationContainer>
           <Pagination
             pages={categoryProducts?.pages}
             onPageChange={handlePageChange}
-            limit={limit}
           />
         </S.ProductsNavigationContainer>
       </S.CategoryProductsContainer>

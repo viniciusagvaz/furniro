@@ -7,16 +7,22 @@ import { UpdateProductDto } from 'src/dtos/update_product.dto';
 export class ProductsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getAllProducts(limit: number, page: number) {
+  async getAllProducts(
+    limit: number,
+    page: number,
+    sort?: string,
+    sort_by?: string,
+  ) {
     const skip = (page - 1) * limit;
 
     const [products, totalProducts] = await Promise.all([
       this.prisma.product.findMany({
         skip,
         take: limit,
-        orderBy: { updated_date: 'desc' },
+        orderBy: { [sort_by]: sort },
         select: {
           id: true,
+          category_id: true,
           name: true,
           description: true,
           price: true,
@@ -35,7 +41,7 @@ export class ProductsService {
     return { products, pages, limit, totalProducts };
   }
 
-  async getAllProductsByCategory(
+  async getProductsFromSpecificCategory(
     limit: number,
     page: number,
     category_id: number,
@@ -69,15 +75,6 @@ export class ProductsService {
 
     const pages = Math.ceil(totalProducts / limit);
     return { products, pages, limit, totalProducts };
-  }
-
-  async getProductById(category_id: number) {
-    return this.prisma.product.findMany({
-      where: { category_id },
-      include: {
-        category: { select: { id: true, name: true, updated_date: true } },
-      },
-    });
   }
 
   async getSpecificProductAndItsRelateds(
@@ -115,7 +112,7 @@ export class ProductsService {
     return { product, relatedProducts };
   }
 
-  async create(products: ProductDto) {
+  async createOneProductAtATime(products: ProductDto) {
     const createdProduct = await this.prisma.product.create({
       data: products,
     });
@@ -123,7 +120,7 @@ export class ProductsService {
     return createdProduct;
   }
 
-  async createMany(products: ProductDto[]) {
+  async createManyProductsAtOnce(products: ProductDto[]) {
     const createdProducts = await this.prisma.product.createMany({
       data: products,
     });
@@ -135,10 +132,6 @@ export class ProductsService {
     return this.prisma.product.delete({
       where: { id },
     });
-  }
-
-  async removeAll() {
-    return this.prisma.product.deleteMany({});
   }
 
   async update(id: number, products: UpdateProductDto) {

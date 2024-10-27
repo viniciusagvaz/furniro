@@ -1,4 +1,4 @@
-import { Button } from "../../ui/Buttons";  
+import { Button } from "../../ui/Buttons";
 import { MenuItem } from "../../ui/MenuItem";
 import * as S from "./styles";
 
@@ -30,6 +30,7 @@ export const ProductCard: React.FC<CardProps> = ({
   image_link,
 }) => {
   const navigateTo = useNavigateTo(`/product/${name}`);
+  const priceOnSale = discount_percent != 0;
 
   return (
     <S.ProductCard id={name}>
@@ -39,10 +40,11 @@ export const ProductCard: React.FC<CardProps> = ({
         <S.Title>{name}</S.Title>
         <S.Description>{description}</S.Description>
 
-        {discount_price ? (
+        {priceOnSale ? (
           <S.PriceContainer>
             <S.DiscountedPrice>{`$ ${discount_price}`}</S.DiscountedPrice>
             <S.OldPrice>{`$ ${price}`}</S.OldPrice>
+            <S.DiscountLabel>{`-${discount_percent}%`}</S.DiscountLabel>
           </S.PriceContainer>
         ) : (
           <S.PriceContainer>
@@ -52,10 +54,6 @@ export const ProductCard: React.FC<CardProps> = ({
       </S.ProductInformation>
 
       {is_new && <S.NewLabel>New</S.NewLabel>}
-      
-      {discount_percent != 0 && (
-        <S.DiscountLabel>{`-${discount_percent}%`}</S.DiscountLabel>
-      )}
 
       <S.HoverCardContent>
         <Button variant="details" children="See Details" onClick={navigateTo} />

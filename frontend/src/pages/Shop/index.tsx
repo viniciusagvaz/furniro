@@ -8,22 +8,25 @@ import { Hero } from "../../components/layout/HeroShop";
 import hero from "../../assets/img/hero-shop.jpeg";
 import { Loader } from "../../components/ui/Loader";
 import { ErrorPage } from "../ErrorPage";
-import { useFetch } from "../../hooks/products";
+import { useFetch } from "../../hooks/useFetch";
 
 import { limitState } from "../../states/limitState";
 import { useRecoilValue } from "recoil";
 import { useState } from "react";
 import { Pagination } from "../../components/ui/PageNavigation/pagination";
+import { sortByPriceState } from "../../states/sortByPrice";
 
 export function Shop() {
   const limit = useRecoilValue(limitState);
+  const sort = useRecoilValue(sortByPriceState)
+
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data, isLoading, isError } = useFetch({
     limit: `${limit}`,
     page: `${currentPage}`,
-    sort: `asc`,
-    sort_by: `updated_date`,
+    sort: `${sort}`,
+    sort_by: "price",
   });
   const products = data?.products;
 
@@ -31,6 +34,9 @@ export function Shop() {
     setCurrentPage(newPage);
   };
 
+  if (currentPage > data?.pages) {
+    setCurrentPage(1);
+  }
 
   if (isLoading) {
     return <Loader />;
@@ -43,11 +49,11 @@ export function Shop() {
   return (
     <S.ShopContainer>
       <Hero image={hero} title="Shop" />
-      <SectionFilter />
+      <SectionFilter totalProducts={data?.totalProducts} />
       <S.ShopProductsContainer>
         <ProductsSection products={products} />
         <S.ProductsNavigationContainer>
-          <Pagination pages={data?.pages} onPageChange={handlePageChange} limit={limit}/>
+          <Pagination pages={data?.pages} onPageChange={handlePageChange} />
         </S.ProductsNavigationContainer>
       </S.ShopProductsContainer>
       <StoreInfo />

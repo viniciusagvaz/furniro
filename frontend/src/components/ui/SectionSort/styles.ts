@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const SectionFilter = styled.section`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   width: 100%;
   margin: 0 auto;
   height: 100px;

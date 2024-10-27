@@ -20,54 +20,36 @@ export class ProductsController {
 
   @Get()
   async getAllProducts(@Query() query: QueryProductsDto) {
-    const { limit, page } = query;
+    const { limit, page, sort, sort_by } = query;
     return await this.productsService.getAllProducts(
       Number(limit),
       Number(page),
+      sort,
+      sort_by,
     );
   }
 
   @Get('/category/:category_id')
-  async getAllProductsByCategory(
+  async getProductsFromSpecificCategory(
     @Param('category_id', ParseIntPipe) category_id: number,
     @Query() query: QueryProductsDto,
   ) {
     const { limit, page } = query;
-    return await this.productsService.getAllProductsByCategory(
+    return await this.productsService.getProductsFromSpecificCategory(
       Number(limit),
       Number(page),
       category_id,
     );
   }
 
-  @Get('/:name')
-  async getSpecificProductAndItsRelateds(
-    @Param('name') name: string,
-    @Query() query: QueryProductsDto,
-  ) {
-    const { limit, page } = query;
-    return await this.productsService.getSpecificProductAndItsRelateds(
-      name,
-      Number(limit),
-      Number(page),
-    );
-  }
-
-  @Get('/:category_id')
-  async getProductById(
-    @Param('category_id', ParseIntPipe) category_id: number,
-  ) {
-    return await this.productsService.getProductById(category_id);
-  }
-
   @Post()
   async create(@Body() body: ProductDto) {
-    return await this.productsService.create(body);
+    return await this.productsService.createOneProductAtATime(body);
   }
 
   @Post('createMany')
   async createMany(@Body() body: ProductDto[]) {
-    return await this.productsService.createMany(body);
+    return await this.productsService.createManyProductsAtOnce(body);
   }
 
   @Delete('/:id')
