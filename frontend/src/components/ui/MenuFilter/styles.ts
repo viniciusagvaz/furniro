@@ -23,7 +23,7 @@ export const FilterModal = styled.form`
   left: 0;
   border-radius: 10px;
   z-index: 1;
-  
+
   &.active {
     visibility: visible;
   }
@@ -41,7 +41,7 @@ export const FilterButton = styled.button`
 
 export const FilterLabel = styled.label`
   font-size: 1.25rem;
-`
+`;
 
 export const Category = styled.div`
   display: flex;
@@ -50,4 +50,4 @@ export const Category = styled.div`
   gap: 1rem;
 `;
 
-export const ItemsShown = styled.div ``
+export const ItemsShown = styled.div``;

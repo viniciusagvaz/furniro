@@ -8,11 +8,15 @@ interface CardProps {
   image_link: string;
 }
 
-export const CardCategory: React.FC<CardProps> = ({ id, name, image_link }) => {
-  const navigateTo = useNavigateTo(`/category/${id}`);
+export const CardCategory: React.FC<CardProps> = ({
+  id,
+  name,
+  image_link,
+}: CardProps) => {
+  const navigateTo: () => void = useNavigateTo(`/category/${id}`);
 
   return (
-    <S.Card id={name}>
+    <S.CardCategory id={name}>
       <S.Image src={image_link} alt={`${name} image`} />
       <S.Title>{name}</S.Title>
       <S.HoverCardContent>
@@ -22,6 +26,6 @@ export const CardCategory: React.FC<CardProps> = ({ id, name, image_link }) => {
           onClick={navigateTo}
         />
       </S.HoverCardContent>
-    </S.Card>
+    </S.CardCategory>
   );
 };

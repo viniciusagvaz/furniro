@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 export const Title = styled.h2`
   font-weight: 700;
   font-size: 1.5rem;
   color: ${({ theme }) => theme["gray-500"]};
-  text-align: center; 
+  text-align: center;
   text-transform: capitalize;
 
   transition: all 0.6s ease-in-out;
@@ -37,7 +36,7 @@ export const Image = styled.img`
   border-radius: 4px;
 `;
 
-export const Card = styled.article`
+export const CardCategory = styled.article`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -72,5 +71,3 @@ export const Card = styled.article`
     }
   }
 `;
-
-export const CategoryLink = styled(Link)``;

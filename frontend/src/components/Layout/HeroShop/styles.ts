@@ -39,4 +39,4 @@ export const Title = styled.h2`
 
 export const Category = styled.p`
   text-transform: capitalize;
-`
+`;

@@ -45,8 +45,6 @@ export class ProductsService {
     limit: number,
     page: number,
     category_id: number,
-    sort?: string,
-    sort_by?: string,
   ) {
     const skip = (page - 1) * limit;
 
@@ -59,6 +57,7 @@ export class ProductsService {
         select: {
           id: true,
           name: true,
+          category_id: true,
           description: true,
           price: true,
           discount_price: true,

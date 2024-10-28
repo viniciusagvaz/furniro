@@ -41,6 +41,19 @@ export class ProductsController {
       category_id,
     );
   }
+  
+  @Get('/:name')
+  async getSpecificProductAndItsRelateds(
+    @Param('name') name: string,
+    @Query() query: QueryProductsDto,
+  ) {
+    const { limit, page } = query;
+    return await this.productsService.getSpecificProductAndItsRelateds(
+      name,
+      Number(limit),
+      Number(page),
+    );
+  }
 
   @Post()
   async create(@Body() body: ProductDto) {

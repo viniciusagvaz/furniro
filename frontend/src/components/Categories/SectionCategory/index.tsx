@@ -12,7 +12,7 @@ interface CategoryProps {
   image_link: string;
 }
 
-export function CategoriesSection() {
+export function CategoriesSection(): JSX.Element {
   const { data: categories, isLoading, isError } = useCategories({});
 
   if (isLoading) {

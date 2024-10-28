@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Button = styled.button``
+export const Button = styled.button``;
 
 export const DetailsButton = styled.button`
   max-width: 202px;

@@ -15,8 +15,8 @@ export const Card = styled.dl`
   display: grid;
   grid-template-columns: 0.25fr 1fr;
   grid-template-rows: repeat(2, 0.5fr);
-  grid-column-gap: .75rem;
-  grid-row-gap: .75rem;
+  grid-column-gap: 0.75rem;
+  grid-row-gap: 0.75rem;
 
   dt {
     grid-area: 1 / 2 / 2 / 3;
@@ -29,11 +29,9 @@ export const Card = styled.dl`
     font-weight: 400;
     font-size: 1.25rem;
     color: ${({ theme }) => theme["gray-400"]};
-    }
+  }
 
   img {
     grid-area: 1 / 1 / 3 / 2;
-    width: 60px;
-    height: 60px;
   }
 `;

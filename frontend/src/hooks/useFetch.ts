@@ -9,7 +9,7 @@ export function useFetch(queries, endpoint = "products") {
 
   const { data, isLoading, isError } = useQuery([endpoint, queries], () =>
     axios.get(baseUrl, { params: queries }).then((response) => response.data)
-);
-console.log(`${baseUrl}`, { params: queries });
+  );
+  console.log({params: queries});
   return { data, isLoading, isError };
 }

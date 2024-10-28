@@ -10,20 +10,13 @@ interface ProductsSectionProps {
   products: Products[];
 }
 
-export function ProductsSection({
-  title,
-  products,
-}: ProductsSectionProps) {
-
+export function ProductsSection({ title, products }: ProductsSectionProps) {
   return (
     <S.ProductsSection>
       <SectionTitle children={title} fontSize="2.5rem" />
       <S.ProductsContent>
         {products?.map((product) => (
-          <ProductCard
-            key={product.id}
-            {...product}
-          />
+          <ProductCard key={product.id} {...product} />
         ))}
       </S.ProductsContent>
     </S.ProductsSection>

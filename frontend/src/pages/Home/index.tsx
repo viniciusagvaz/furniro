@@ -15,13 +15,12 @@ export function Home() {
 
   const { data, isLoading, isError } = useFetch({
     limit: `4`,
-    page: '1',
-    sort: 'desc',
-    sort_by: 'updated_date',
+    page: "1",
+    sort: "desc",
+    sort_by: "updated_date",
   });
-  
+
   const products = data?.products;
-  console.log(products);
   if (isLoading) {
     return <Loader />;
   }

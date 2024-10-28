@@ -18,7 +18,7 @@ import { sortByPriceState } from "../../states/sortByPrice";
 
 export function Shop() {
   const limit = useRecoilValue(limitState);
-  const sort = useRecoilValue(sortByPriceState)
+  const sort = useRecoilValue(sortByPriceState);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -27,9 +27,11 @@ export function Shop() {
     page: `${currentPage}`,
     sort: `${sort}`,
     sort_by: "price",
+    categoryIds: [],
   });
-  const products = data?.products;
 
+  const products = data?.products;
+  console.log(data);
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };

@@ -10,5 +10,4 @@ export const RelatedProductsContainer = styled.section`
   flex-direction: column;
   align-items: center;
   margin-bottom: 5rem;
-
-  `;
+`;

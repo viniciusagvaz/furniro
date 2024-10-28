@@ -1,5 +1,5 @@
-import { MenuItem } from "../../ui/MenuItem/styles.js";
 import * as S from "./styles.js";
+import { HeroMenu } from "../HeroMenu/index.js";
 
 interface HeroProps {
   title: string;
@@ -8,25 +8,11 @@ interface HeroProps {
 
 export function Hero({ title, image }: HeroProps) {
   return (
-    <S.Hero> 
+    <S.Hero>
       <S.HeroBg src={image} alt="hero" />
       <S.HeroContent>
         <S.Title>{title}</S.Title>
-
-        <span>
-          <MenuItem to={"/home"} children={"Home"} />
-          <svg
-            width="8"
-            height="14"
-            viewBox="0 0 8 14"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M0 12L5 7L0 2L1 0L8 7L1 14L0 12Z" fill="black" />
-          </svg>
-
-          <S.Category>{title}</S.Category>
-        </span>
+        <HeroMenu title={title} />
       </S.HeroContent>
     </S.Hero>
   );

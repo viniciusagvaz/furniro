@@ -7,6 +7,8 @@ import compare from "../../../assets/icons/compare.svg";
 import heart from "../../../assets/icons/heart-wt.svg";
 
 import { useNavigateTo } from "../../../hooks/useNavigateTo";
+import { ProductImage } from "../ProductImage";
+import { ProductInformation } from "../ProductInformation";
 
 interface CardProps {
   id: number;
@@ -26,34 +28,24 @@ export const ProductCard: React.FC<CardProps> = ({
   price,
   discount_price,
   discount_percent,
-  is_new,
   image_link,
+  is_new,
 }) => {
   const navigateTo = useNavigateTo(`/product/${name}`);
-  const priceOnSale = discount_percent != 0;
 
   return (
     <S.ProductCard id={name}>
-      <S.Image src={image_link} alt={`Product ${name}`} />
-
-      <S.ProductInformation>
-        <S.Title>{name}</S.Title>
-        <S.Description>{description}</S.Description>
-
-        {priceOnSale ? (
-          <S.PriceContainer>
-            <S.DiscountedPrice>{`$ ${discount_price}`}</S.DiscountedPrice>
-            <S.OldPrice>{`$ ${price}`}</S.OldPrice>
-            <S.DiscountLabel>{`-${discount_percent}%`}</S.DiscountLabel>
-          </S.PriceContainer>
-        ) : (
-          <S.PriceContainer>
-            <S.Price>{`$ ${price}`}</S.Price>
-          </S.PriceContainer>
-        )}
-      </S.ProductInformation>
-
-      {is_new && <S.NewLabel>New</S.NewLabel>}
+      <ProductImage imageLink={image_link} altText={name} />
+      <ProductInformation
+        {...{
+          name,
+          description,
+          price,
+          discount_price,
+          discount_percent,
+          is_new,
+        }}
+      />
 
       <S.HoverCardContent>
         <Button variant="details" children="See Details" onClick={navigateTo} />

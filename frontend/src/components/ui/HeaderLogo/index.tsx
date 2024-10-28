@@ -8,7 +8,6 @@ interface LogoProps {
 }
 
 export const Logo: React.FC<LogoProps> = ({ logo }) => {
-
   const navigate = useNavigate();
 
   const handleNavigate = () => {
@@ -17,8 +16,8 @@ export const Logo: React.FC<LogoProps> = ({ logo }) => {
 
   return (
     <S.Logo onClick={handleNavigate}>
-        <S.LogoImage src={logo} alt="Logo" width="3.5rem" />
-        <TitleBrand fontSize="2rem" />
+      <S.LogoImage src={logo} alt="Logo" width="3.5rem" />
+      <TitleBrand fontSize="2rem" />
     </S.Logo>
   );
 };

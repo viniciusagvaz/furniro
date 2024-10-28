@@ -5,4 +5,3 @@ export const AreaUser = styled.ul`
   align-items: center;
   gap: 3rem;
 `;
-

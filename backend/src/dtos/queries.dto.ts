@@ -37,4 +37,9 @@ export class QueryProductsDto {
   @IsArray()
   @IsString({ each: true })
   filters?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @IsNumber({}, { each: true })
+  categoryIds?: number[];
 }

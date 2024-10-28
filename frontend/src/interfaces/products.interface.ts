@@ -5,9 +5,9 @@ export interface Products {
   name: string;
   sku: string;
   category_id?: number;
-  description: string ;
+  description: string;
   large_description: string;
-  price: number ;
+  price: number;
   discount_price: number | null;
   discount_percent: number | null;
   is_new: boolean;

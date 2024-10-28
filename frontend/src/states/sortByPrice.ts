@@ -4,4 +4,3 @@ export const sortByPriceState = atom({
   key: "SortByPrice",
   default: "asc",
 });
-

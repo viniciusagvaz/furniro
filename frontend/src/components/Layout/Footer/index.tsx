@@ -11,7 +11,7 @@ export function Footer(): JSX.Element {
           <TitleBrand fontSize={"1.2rem"} />
           <S.Address>
             400 University Drive Suite 200 Coral Gables,
-            <div>FL 33134 USA</div>
+            <p>FL 33134 USA</p>
           </S.Address>
         </S.FooterLeft>
 

@@ -12,7 +12,7 @@ export const Input = styled.input`
   border: none;
   border-bottom: 1.5px solid #000;
   color: ${({ theme }) => theme["gray-500"]};
-  font-size: .75rem;
+  font-size: 0.75rem;
 
   &::placeholder,
   &::-webkit-input-placeholder {

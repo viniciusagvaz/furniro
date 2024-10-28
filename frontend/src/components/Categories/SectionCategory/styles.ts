@@ -7,8 +7,7 @@ export const CategoriesSection = styled.section`
   max-width: 1183px;
   width: 100%;
   margin: 5rem auto 0;
-  `;
-
+`;
 
 export const CategoriesContent = styled.div`
   display: flex;
@@ -17,5 +16,3 @@ export const CategoriesContent = styled.div`
   gap: 1rem;
   margin: 4rem auto 0;
 `;
-
-

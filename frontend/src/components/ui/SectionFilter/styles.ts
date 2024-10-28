@@ -12,4 +12,3 @@ export const SectionFilter = styled.section`
   padding: 0 5rem;
   position: relative;
 `;
-

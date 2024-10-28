@@ -15,11 +15,3 @@ export function Input({ type, name, label, placeholder }: InputProps) {
     </S.Wrapper>
   );
 }
-
-
-{/* <Input
-name="This is my input"
-type={"text"}
-label="This is my label"
-placeholder="Enter Your Email Address"
-/> */}

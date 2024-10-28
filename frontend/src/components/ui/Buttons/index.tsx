@@ -16,9 +16,7 @@ const buttonComponents = {
 };
 
 export function Button({ children, variant, ...props }: ButtonProps) {
-
   const ButtonComponent = buttonComponents[variant] || S.Button;
-
 
   return <ButtonComponent {...props}>{children}</ButtonComponent>;
 }

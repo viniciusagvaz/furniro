@@ -1,7 +1,7 @@
 import * as S from "./styles";
 
 import { ProductsSection } from "../../components/products/SectionProduct";
-import { ProductGrid } from "../../components/productdetail/GridProduct";
+import { ProductGrid } from "../../components/productdetail/CardProductDetail";
 import { LargeDescription } from "../../components/productdetail/LargeDescription";
 import { BreadCrumbs } from "../../components/productdetail/Breadcrumbs";
 
@@ -18,10 +18,15 @@ export function ProductDetail() {
   const [showMoreClicked, setShowMoreClicked] = useState(false);
   const { productName } = useParams();
 
-  const { data, isLoading, isError } = useFetch({
-    limit: `${limit}`,
-    page: "1",
-  }, `products/${productName}`);
+  const { data, isLoading, isError } = useFetch(
+    {
+      limit: `${limit}`,
+      page: "1",
+      sort: "asc",
+      sort_by: "price",
+    },
+    `products/${productName}`
+  );
 
   const products = data?.relatedProducts;
   const currentProduct = data?.product;

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const FilterSorting = styled.div`
   display: flex;
   align-items: center;
