@@ -4,11 +4,6 @@ export const FilterMenu = styled.div`
   display: flex;
   align-items: center;
   gap: 1.5rem;
-
-  span.pipe {
-    height: 30px;
-    border: 1px solid ${({ theme }) => theme["gray-300"]};
-  }
 `;
 
 export const FilterModal = styled.form`

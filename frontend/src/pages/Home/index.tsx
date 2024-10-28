@@ -9,7 +9,6 @@ import { Button } from "../../components/ui/Buttons";
 import { useFetch } from "../../hooks/useFetch";
 import { Loader } from "../../components/ui/Loader";
 import { ErrorPage } from "../ErrorPage";
-
 export function Home() {
   const navigateTo = useNavigateTo("/shop");
 
@@ -18,6 +17,7 @@ export function Home() {
     page: "1",
     sort: "desc",
     sort_by: "updated_date",
+    categoryIds: [],
   });
 
   const products = data?.products;

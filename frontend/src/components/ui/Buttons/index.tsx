@@ -4,7 +4,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   to?: string;
   isActive?: boolean;
-  variant: "details" | "show" | "navigation" | "cart" | "newsletter";
+  variant: "details" | "show" | "navigation" | "cart" | "newsletter" | "active";
 }
 
 const buttonComponents = {
@@ -12,7 +12,8 @@ const buttonComponents = {
   show: S.ShowButton,
   navigation: S.NavigationButton,
   cart: S.CartButton,
-  newsletter: S.NewsLetterButton,
+  newsletter: S.NewsLetterButton, 
+  active: S.ActiveNavigationButton,
 };
 
 export function Button({ children, variant, ...props }: ButtonProps) {

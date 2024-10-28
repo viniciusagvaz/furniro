@@ -8,7 +8,6 @@ import {
   Patch,
   Post,
   Put,
-  Query,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CategoryDto } from 'src/dtos/categories.dto';

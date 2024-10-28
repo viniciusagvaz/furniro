@@ -22,6 +22,15 @@ export const HeroBg = styled.img`
   background-position-y: bottom;
 `;
 
+
+export const HeroText = styled.p`
+max-width: 640px;
+width: 100%;
+
+border-radius: 10px 10px 0 0;
+padding-bottom: 0.5rem;
+`;
+
 export const HeroContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -31,16 +40,10 @@ export const HeroContent = styled.div`
   bottom: 0.05rem;
   left: 51.25%;
   margin-right: 4rem;
+  background-color: ${({ theme }) => theme["yellow-300"]};
 
   border: none;
   padding: 6rem 4rem 10rem;
-  background-color: ${({ theme }) => theme["yellow-300"]};
 `;
+  
 
-export const HeroText = styled.p`
-  max-width: 640px;
-  width: 100%;
-
-  border-radius: 10px 10px 0 0;
-  padding-bottom: 0.5rem;
-`;

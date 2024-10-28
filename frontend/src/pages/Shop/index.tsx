@@ -19,7 +19,6 @@ import { sortByPriceState } from "../../states/sortByPrice";
 export function Shop() {
   const limit = useRecoilValue(limitState);
   const sort = useRecoilValue(sortByPriceState);
-
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data, isLoading, isError } = useFetch({
@@ -29,9 +28,8 @@ export function Shop() {
     sort_by: "price",
     categoryIds: [],
   });
-
   const products = data?.products;
-  console.log(data);
+
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
@@ -55,7 +53,11 @@ export function Shop() {
       <S.ShopProductsContainer>
         <ProductsSection products={products} />
         <S.ProductsNavigationContainer>
-          <Pagination pages={data?.pages} onPageChange={handlePageChange} />
+          <Pagination
+            pages={data?.pages}
+            onPageChange={handlePageChange}
+            currentPage={currentPage}
+          />
         </S.ProductsNavigationContainer>
       </S.ShopProductsContainer>
       <StoreInfo />

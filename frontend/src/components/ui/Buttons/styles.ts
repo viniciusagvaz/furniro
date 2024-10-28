@@ -40,6 +40,11 @@ export const NavigationButton = styled.button`
   }
 `;
 
+export const ActiveNavigationButton = styled(NavigationButton)`
+  background-color: ${({ theme }) => theme["golden-brown"]};
+  color: #ffffff;
+`;
+
 export const CartButton = styled.button`
   background-color: transparent;
   border: 1px solid #000;

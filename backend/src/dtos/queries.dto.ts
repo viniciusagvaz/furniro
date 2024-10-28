@@ -1,13 +1,11 @@
 import {
   IsArray,
-  IsBoolean,
   IsNumber,
   IsNumberString,
   IsOptional,
-  IsPositive,
   IsString,
 } from 'class-validator';
- 
+
 export class QueryProductsDto {
   @IsOptional()
   @IsString()

@@ -18,6 +18,7 @@ export const Title = styled.h2`
   font-size: 1.5rem;
   font-weight: 600;
   color: ${({ theme }) => theme["gray-500"]};
+  text-transform: capitalize;
 `;
 
 export const PriceContainer = styled.span`

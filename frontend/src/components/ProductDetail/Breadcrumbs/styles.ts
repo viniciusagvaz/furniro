@@ -6,14 +6,9 @@ export const BreadCrumbs = styled.div`
   gap: 1.5rem;
   height: 100px;
   background-color: ${({ theme }) => theme["yellow-200"]};
+  text-transform: capitalize;
 
   padding: 0 5rem;
-
-  span.pipe {
-    height: 37px;
-    border: 1px solid ${({ theme }) => theme["gray-300"]};
-    opacity: 0.4;
-  }
 `;
 
 export const BreadCrumbsLink = styled.a`

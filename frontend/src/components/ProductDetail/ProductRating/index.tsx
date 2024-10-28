@@ -1,5 +1,7 @@
 import * as S from "./styles";
 import star from "../../../assets/icons/star.svg";
+import { Pipe } from "../../ui/Pipe";
+import { Icon } from "../../ui/Icon";
 
 interface ProductRatingProps {
   rating: number;
@@ -10,10 +12,10 @@ export const ProductRating: React.FC<ProductRatingProps> = ({ rating }) => {
     <S.Rating>
       <span className={"stars"}>
         {[...Array(rating)].map((_, index) => (
-          <img src={star} alt="" key={index} />
+          <Icon src={star} alt="" key={index} />
         ))}
       </span>
-      <span className={"pipe"} />
+      <Pipe height={"2rem"} width={"0"} border={"1px solid #9d9d9d"} />
       <span>5 Customer Review</span>
     </S.Rating>
   );

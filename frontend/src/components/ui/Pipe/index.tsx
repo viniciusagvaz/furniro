@@ -6,6 +6,6 @@ interface PipeProps {
   border?: string;
 }
 
-export const Pipe = ({ width, height, border }: PipeProps) => {
-  return <S.Pipe width={width} height={height} border={border} />;
+export const Pipe = ({ width, height}: PipeProps) => {
+  return <S.Pipe width={width} height={height} />;
 };

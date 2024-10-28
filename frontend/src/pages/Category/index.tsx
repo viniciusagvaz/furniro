@@ -43,7 +43,6 @@ export function Category() {
       page: `${currentPage}`,
       sort: "asc",
       sort_by: "price",
-      categories: `${categoryId}`,
     },
     `products/category/${categoryId}`
   );
@@ -54,12 +53,9 @@ export function Category() {
     setCurrentPage(newPage);
   };
 
-  const handleResultsMoreThanLimit = () => {
-    if (data?.totalProducts > limit) {
-      return limit;
-    }
-    return data?.totalProducts;
-  };
+  if (currentPage > data?.pages) {
+    setCurrentPage(1);
+  }
 
   if (isLoading || categoryLoading) {
     return <Loader />;
@@ -73,16 +69,14 @@ export function Category() {
     <S.CategoryContainer>
       <Hero image={currentCategory?.image_link} title={currentCategory?.name} />
 
-      <SectionSort
-        limit={handleResultsMoreThanLimit()}
-        totalProducts={data?.totalProducts}
-      />
+      <SectionSort limit={limit} totalProducts={data?.totalProducts} />
       <S.CategoryProductsContainer>
         <ProductsSection products={categoryProducts} />
         <S.ProductsNavigationContainer>
           <Pagination
-            pages={categoryProducts?.pages}
+            pages={data?.pages}
             onPageChange={handlePageChange}
+            currentPage={currentPage}
           />
         </S.ProductsNavigationContainer>
       </S.CategoryProductsContainer>

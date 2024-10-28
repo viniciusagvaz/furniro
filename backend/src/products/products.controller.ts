@@ -17,15 +17,15 @@ import { UpdateProductDto } from 'src/dtos/update_product.dto';
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
-
   @Get()
   async getAllProducts(@Query() query: QueryProductsDto) {
-    const { limit, page, sort, sort_by } = query;
+    const { limit, page, sort, sort_by, categoryIds } = query;
     return await this.productsService.getAllProducts(
       Number(limit),
       Number(page),
       sort,
       sort_by,
+      categoryIds,
     );
   }
 
@@ -41,7 +41,7 @@ export class ProductsController {
       category_id,
     );
   }
-  
+
   @Get('/:name')
   async getSpecificProductAndItsRelateds(
     @Param('name') name: string,

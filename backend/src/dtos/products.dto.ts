@@ -2,9 +2,6 @@ import {
   IsArray,
   IsBoolean,
   IsNumber,
-  IsNumberString,
-  IsOptional,
-  IsPositive,
   IsString,
 } from 'class-validator';
 

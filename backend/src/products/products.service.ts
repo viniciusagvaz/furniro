@@ -12,11 +12,12 @@ export class ProductsService {
     page: number,
     sort?: string,
     sort_by?: string,
+    categoryIds?: number[],
   ) {
     const skip = (page - 1) * limit;
-
     const [products, totalProducts] = await Promise.all([
       this.prisma.product.findMany({
+        where: { category_id: { in: categoryIds } },
         skip,
         take: limit,
         orderBy: { [sort_by]: sort },
@@ -33,7 +34,9 @@ export class ProductsService {
           updated_date: true,
         },
       }),
-      this.prisma.product.count(),
+      this.prisma.product.count({
+        where: { category_id: { in: categoryIds } },
+      }),
     ]);
 
     const pages = Math.ceil(totalProducts / limit);
