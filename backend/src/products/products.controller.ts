@@ -11,75 +11,70 @@ import {
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { ProductDto } from 'src/dtos/products.dto';
-import { Product } from '@prisma/client';
+import { QueryProductsDto } from 'src/dtos/queries.dto';
+import { UpdateProductDto } from 'src/dtos/update_product.dto';
 
 @Controller('products')
 export class ProductsController {
-  constructor(private readonly productsService: ProductsService) {}
-
-  @Post()
-  async create(@Body() product: ProductDto) {
-    return this.productsService.create(product);
-  }
-
+  constructor(private productsService: ProductsService) {}
   @Get()
-  async getAll(
-    @Query('limit') limit?: number,
-    @Query('offset') offset?: number,
-    @Query('order') order?: string,
-    @Query('order_by') order_by?: 'ASC' | 'DESC',
-    @Query('category_id') category_id?: number,
-  ) {
-    const products = await this.productsService.getAll(
-      limit || 4,
-      offset || 0,
-      order,
-      order_by,
-      category_id,
+  async getAllProducts(@Query() query: QueryProductsDto) {
+    const { limit, page, sort, sort_by, categoryIds } = query;
+    return await this.productsService.getAllProducts(
+      Number(limit),
+      Number(page),
+      sort,
+      sort_by,
+      categoryIds,
     );
-    return products;
-  }
-
-  @Get('/list')
-  async getLimitedProductsAmount(
-    @Query('limit', ParseIntPipe) amount?: number,
-  ) {
-    const result = await this.productsService.getLimitedProductsAmount(amount);
-    return result;
-  }
-
-  @Get()
-  async getProductsByCategoryId(
-    @Query('category_id', ParseIntPipe) category_id: number,
-  ) {
-    return this.productsService.getProductsByCategoryId(category_id);
-  }
-
-  @Get('/:id')
-  getById(@Param('id', ParseIntPipe) id: number) {
-    return this.productsService.getById(id);
   }
 
   @Get('/category/:category_id')
-  getByCategoryId(@Param('category_id', ParseIntPipe) category_id: number) {
-    return this.productsService.getProductsByCategoryId(category_id);
+  async getProductsFromSpecificCategory(
+    @Param('category_id', ParseIntPipe) category_id: number,
+    @Query() query: QueryProductsDto,
+  ) {
+    const { limit, page } = query;
+    return await this.productsService.getProductsFromSpecificCategory(
+      Number(limit),
+      Number(page),
+      category_id,
+    );
   }
 
-  @Put('/:id')
-  async update(
-    @Body('id', ParseIntPipe) id: number,
-    @Body() product: ProductDto,
+  @Get('/:name')
+  async getSpecificProductAndItsRelateds(
+    @Param('name') name: string,
+    @Query() query: QueryProductsDto,
   ) {
-    return this.productsService.update(id, product);
+    const { limit, page } = query;
+    return await this.productsService.getSpecificProductAndItsRelateds(
+      name,
+      Number(limit),
+      Number(page),
+    );
+  }
+
+  @Post()
+  async create(@Body() body: ProductDto) {
+    return await this.productsService.createOneProductAtATime(body);
+  }
+
+  @Post('createMany')
+  async createMany(@Body() body: ProductDto[]) {
+    return await this.productsService.createManyProductsAtOnce(body);
   }
 
   @Delete('/:id')
   async remove(@Param('id', ParseIntPipe) id: number) {
-    return this.productsService.remove(id);
+    return await this.productsService.remove(id);
   }
 
-  @Delete('/all')
-  async removeAll() {
-    return this.productsService.removeAll();
+  @Put('/:id')
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: UpdateProductDto,
+  ) {
+    return await this.productsService.update(id, body);
   }
 }

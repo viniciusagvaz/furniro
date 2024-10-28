@@ -1,16 +1,18 @@
 import * as S from "./styles";
 
-import { ProductsSection } from "../../components/SectionProduct";
-import { Hero } from "../../components/HeroShop";
-import { StoreInfo } from "../../components/InfoStore";
+import { ProductsSection } from "../../components/products/SectionProduct";
+import { Hero } from "../../components/layout/HeroShop";
+import { StoreInfo } from "../../components/ui/InfoStore";
+import { Pagination } from "../../components/ui/PageNavigation/pagination";
+import { SectionSort } from "../../components/ui/SectionSort";
+import { Loader } from "../../components/ui/Loader";
 
-import { useParams } from "react-router-dom";
-import { useGetProductsByCategory } from "../../hooks/useGetProductsByCategory";
-import { SectionSort } from "../../components/SectionSort";
-import { useGetCategories } from "../../hooks/useGetCategories";
-import { Button } from "../../components/Buttons";
-import { Loader } from "../../components/Loader";
 import { ErrorPage } from "../ErrorPage";
+import { limitState } from "../../states/limitState";
+import { useFetch } from "../../hooks/useFetch";
+import { useRecoilValue } from "recoil";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
 
 interface Category {
   id: number;
@@ -19,33 +21,63 @@ interface Category {
 }
 
 export function Category() {
+  const [currentPage, setCurrentPage] = useState(1);
   const { categoryId } = useParams();
-  const { categories } = useGetCategories();
-  const { products, loading, error } = useGetProductsByCategory(
-    Number(categoryId)
+  const limit = useRecoilValue(limitState);
+
+  const {
+    data: category,
+    isLoading: categoryLoading,
+    isError: categoryError,
+  } = useFetch(
+    {
+      categories: `${categoryId}`,
+    },
+    `categories/image/${categoryId}`
+  );
+  const currentCategory = category;
+
+  const { data, isLoading, isError } = useFetch(
+    {
+      limit: `${limit}`,
+      page: `${currentPage}`,
+      sort: "asc",
+      sort_by: "price",
+    },
+    `products/category/${categoryId}`
   );
 
-  const category = categories?.find((cat: Category) => {
-    return cat.id === Number(categoryId);
-  });
+  const categoryProducts = data?.products;
 
-  if (loading) {
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  if (currentPage > data?.pages) {
+    setCurrentPage(1);
+  }
+
+  if (isLoading || categoryLoading) {
     return <Loader />;
   }
 
-  if (error) {
-    return <ErrorPage statusCode={error.status} />;
+  if (isError || categoryError) {
+    return <ErrorPage />;
   }
+
   return (
     <S.CategoryContainer>
-      <Hero image={category?.image_link} title={category?.name} />
-      <SectionSort />
+      <Hero image={currentCategory?.image_link} title={currentCategory?.name} />
+
+      <SectionSort limit={limit} totalProducts={data?.totalProducts} />
       <S.CategoryProductsContainer>
-        <ProductsSection limit={16} products={products} />
+        <ProductsSection products={categoryProducts} />
         <S.ProductsNavigationContainer>
-          <Button variant={"navigation"} children={"Next"} />
-          <Button variant={"navigation"} children={"Next"} />
-          <Button variant={"navigation"} children={"Next"} />
+          <Pagination
+            pages={data?.pages}
+            onPageChange={handlePageChange}
+            currentPage={currentPage}
+          />
         </S.ProductsNavigationContainer>
       </S.CategoryProductsContainer>
       <StoreInfo />

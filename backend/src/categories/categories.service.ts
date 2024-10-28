@@ -7,12 +7,22 @@ export class CategoriesService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getAll() {
-    return await this.prisma.category.findMany({});
+    return await this.prisma.category.findMany({
+      include: { product: true },
+      orderBy: { id: 'asc' },
+    });
   }
 
   async getById(id: number) {
     return await this.prisma.category.findUnique({
       where: { id },
+    });
+  }
+
+  async getCategoryImageAndNameById(category_id: number) {
+    return await this.prisma.category.findUnique({
+      where: { id: category_id },
+      select: { id: true, image_link: true, name: true },
     });
   }
 

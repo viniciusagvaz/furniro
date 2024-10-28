@@ -1,129 +1,145 @@
 import { Injectable } from '@nestjs/common';
 import { ProductDto } from '../dtos/products.dto';
 import { PrismaService } from '../prisma/prisma.service';
-import { Product } from '@prisma/client';
 import { UpdateProductDto } from 'src/dtos/update_product.dto';
 
 @Injectable()
 export class ProductsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create({
-    name,
-    sku,
-    category_id,
-    description,
-    large_description,
-    price,
-    discount_price,
-    discount_percent,
-    is_new,
-    image_link,
-    other_image_link,
-  }: ProductDto) {
-    const createdProduct = await this.prisma.product.create({
-      data: {
-        name,
-        sku,
-        description,
-        large_description,
-        price,
-        discount_price,
-        discount_percent,
-        is_new,
-        image_link,
-        other_image_link,
-        category: {
-          connect: {
-            id: category_id,
-          },
+  async getAllProducts(
+    limit: number,
+    page: number,
+    sort?: string,
+    sort_by?: string,
+    categoryIds?: number[],
+  ) {
+    const skip = (page - 1) * limit;
+    const [products, totalProducts] = await Promise.all([
+      this.prisma.product.findMany({
+        where: { category_id: { in: categoryIds } },
+        skip,
+        take: limit,
+        orderBy: { [sort_by]: sort },
+        select: {
+          id: true,
+          category_id: true,
+          name: true,
+          description: true,
+          price: true,
+          discount_price: true,
+          discount_percent: true,
+          is_new: true,
+          image_link: true,
+          updated_date: true,
         },
+      }),
+      this.prisma.product.count({
+        where: { category_id: { in: categoryIds } },
+      }),
+    ]);
+
+    const pages = Math.ceil(totalProducts / limit);
+
+    return { products, pages, limit, totalProducts };
+  }
+
+  async getProductsFromSpecificCategory(
+    limit: number,
+    page: number,
+    category_id: number,
+  ) {
+    const skip = (page - 1) * limit;
+
+    const [products, totalProducts] = await Promise.all([
+      this.prisma.product.findMany({
+        where: { category_id },
+        skip,
+        take: limit,
+        orderBy: { updated_date: 'asc' },
+        select: {
+          id: true,
+          name: true,
+          category_id: true,
+          description: true,
+          price: true,
+          discount_price: true,
+          discount_percent: true,
+          image_link: true,
+          updated_date: true,
+        },
+      }),
+
+      this.prisma.product.count({
+        where: { category_id },
+      }),
+    ]);
+
+    const pages = Math.ceil(totalProducts / limit);
+    return { products, pages, limit, totalProducts };
+  }
+
+  async getSpecificProductAndItsRelateds(
+    name: string,
+    limit: number,
+    page: number,
+  ) {
+    const { category_id } = await this.prisma.product.findFirst({
+      where: { name },
+      select: { category_id: true },
+    });
+
+    const product = await this.prisma.product.findFirst({
+      where: { name, category_id },
+
+      include: { category: { select: { name: true, updated_date: true } } },
+    });
+
+    const relatedProducts = await this.prisma.product.findMany({
+      where: { category_id, id: { not: product.id } },
+      take: limit,
+      skip: (page - 1) * limit,
+      select: {
+        id: true,
+        name: true,
+        image_link: true,
+        description: true,
+        price: true,
+        discount_price: true,
+        discount_percent: true,
+        is_new: true,
       },
+    });
+
+    return { product, relatedProducts };
+  }
+
+  async createOneProductAtATime(products: ProductDto) {
+    const createdProduct = await this.prisma.product.create({
+      data: products,
     });
 
     return createdProduct;
   }
 
-  async getAll(
-    limit?: number,
-    offset?: number,
-    order?: string,
-    order_by?: 'ASC' | 'DESC',
-    category_id?: number,
-  ) {
-    const result = await this.prisma.product.findMany({
-      include: {
-        category: true,
-      },
+  async createManyProductsAtOnce(products: ProductDto[]) {
+    const createdProducts = await this.prisma.product.createMany({
+      data: products,
     });
 
-    if (limit && offset) {
-      return result.slice(offset, limit);
-    }
-
-    if (order && order_by) {
-      return result.sort((a, b) => {
-        if (order_by === 'ASC') {
-          return a[order] - b[order];
-        } else {
-          return b[order] - a[order];
-        }
-      });
-    }
-
-    if (category_id) {
-      return result.filter((product) => product.category_id === category_id);
-    }
-    
-    if (limit) {
-      return result.slice(0, limit);
-    }
-
-    return result;
-  }
-
-  async getById(id: number) {
-    return this.prisma.product.findUnique({
-      where: { id: id },
-    });
-  }
-
-  async getLimitedProductsAmount(limit?: number) {
-    const result = await this.prisma.product.findMany();
-    const limitedResult = result.slice(0, limit);
-
-    if (!limit) {
-      return result;
-    }
-
-    return limitedResult;
-  }
-
-  async getProductsByCategoryId(categoryId: number) {
-    return this.prisma.product.findMany({
-      where: { category_id: categoryId },
-      include: { category: true },
-    });
+    return createdProducts;
   }
 
   async remove(id: number) {
     return this.prisma.product.delete({
-      where: { id: id },
+      where: { id },
     });
   }
 
-  async removeAll() {
-    return this.prisma.product.deleteMany({});
-  }
-
-  async update(id: number, product: UpdateProductDto) {
-    const updatedProduct = await this.prisma.product.update({
-      where: { id: parseInt(`${id}`) },
-      data: {
-        id,
-      },
+  async update(id: number, products: UpdateProductDto) {
+    return this.prisma.product.update({
+      where: { id },
+      data: products,
     });
-
-    return updatedProduct;
   }
 }

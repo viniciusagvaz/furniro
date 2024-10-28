@@ -1,25 +1,32 @@
 import * as S from "./styles";
 
-import { CategoriesSection } from "../../components/SectionCategory";
-import { Hero } from "../../components/HeroHome";
-import { ProductsSection } from "../../components/SectionProduct";
-import { StoreInfo } from "../../components/InfoStore";
+import { CategoriesSection } from "../../components/categories/SectionCategory";
+import { Hero } from "../../components/layout/HeroHome";
+import { ProductsSection } from "../../components/products/SectionProduct";
+import { StoreInfo } from "../../components/ui/InfoStore";
 import { useNavigateTo } from "../../hooks/useNavigateTo";
-import { useGetAllProducts } from "../../hooks/useGetAllProducts";
-import { Button } from "../../components/Buttons";
-import { Loader } from "../../components/Loader";
+import { Button } from "../../components/ui/Buttons";
+import { useFetch } from "../../hooks/useFetch";
+import { Loader } from "../../components/ui/Loader";
 import { ErrorPage } from "../ErrorPage";
-
 export function Home() {
-  const { products, loading, error } = useGetAllProducts();
   const navigateTo = useNavigateTo("/shop");
 
-  if (loading) {
+  const { data, isLoading, isError } = useFetch({
+    limit: `4`,
+    page: "1",
+    sort: "desc",
+    sort_by: "updated_date",
+    categoryIds: [],
+  });
+
+  const products = data?.products;
+  if (isLoading) {
     return <Loader />;
   }
 
-  if (error) {
-    return <ErrorPage statusCode={error.status}/>;
+  if (isError) {
+    return <ErrorPage />;
   }
 
   return (
@@ -28,7 +35,6 @@ export function Home() {
       <CategoriesSection />
       <S.OurProductsContainer>
         <ProductsSection
-          limit={4}
           title={"Our Products"}
           path="/shop"
           products={products}

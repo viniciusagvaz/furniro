@@ -1,40 +1,63 @@
 import * as S from "./styles";
 
-import { ProductsSection } from "../../components/SectionProduct";
-import { StoreInfo } from "../../components/InfoStore";
-import { SectionFilter } from "../../components/SectionFilter";
-import { Hero } from "../../components/HeroShop";
-
-import { useGetAllProducts } from "../../hooks/useGetAllProducts";
+import { ProductsSection } from "../../components/products/SectionProduct";
+import { StoreInfo } from "../../components/ui/InfoStore";
+import { SectionFilter } from "../../components/ui/SectionFilter";
+import { Hero } from "../../components/layout/HeroShop";
 
 import hero from "../../assets/img/hero-shop.jpeg";
-import { Button } from "../../components/Buttons";
-import { Loader } from "../../components/Loader";
+import { Loader } from "../../components/ui/Loader";
 import { ErrorPage } from "../ErrorPage";
+import { useFetch } from "../../hooks/useFetch";
+
+import { limitState } from "../../states/limitState";
+import { useRecoilValue } from "recoil";
+import { useState } from "react";
+import { Pagination } from "../../components/ui/PageNavigation/pagination";
+import { sortByPriceState } from "../../states/sortByPrice";
 
 export function Shop() {
-  const { products, loading, error } = useGetAllProducts();
+  const limit = useRecoilValue(limitState);
+  const sort = useRecoilValue(sortByPriceState);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  if (loading) {
+  const { data, isLoading, isError } = useFetch({
+    limit: `${limit}`,
+    page: `${currentPage}`,
+    sort: `${sort}`,
+    sort_by: "price",
+    categoryIds: [],
+  });
+  const products = data?.products;
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  if (currentPage > data?.pages) {
+    setCurrentPage(1);
+  }
+
+  if (isLoading) {
     return <Loader />;
   }
 
-  
-  if (error) {
-    return <ErrorPage statusCode={error.status}/>;
+  if (isError) {
+    return <ErrorPage />;
   }
 
   return (
     <S.ShopContainer>
       <Hero image={hero} title="Shop" />
-      <SectionFilter />
-
+      <SectionFilter totalProducts={data?.totalProducts} />
       <S.ShopProductsContainer>
-        <ProductsSection limit={16} products={products} />
+        <ProductsSection products={products} />
         <S.ProductsNavigationContainer>
-          <Button variant={"navigation"} children={"Next"} />
-          <Button variant={"navigation"} children={"Next"} />
-          <Button variant={"navigation"} children={"Next"} />
+          <Pagination
+            pages={data?.pages}
+            onPageChange={handlePageChange}
+            currentPage={currentPage}
+          />
         </S.ProductsNavigationContainer>
       </S.ShopProductsContainer>
       <StoreInfo />
